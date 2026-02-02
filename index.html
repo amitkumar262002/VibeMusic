@@ -33,11 +33,14 @@
             <img src="assets/logo.png" alt="Logo" class="nav-logo">
             <span>Vibe Music</span>
         </div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#features">Features</a>
-            <a href="#screens">Gallery</a>
-            <a href="#download" class="nav-btn">Download</a>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" onclick="toggleMenu()">Home</a>
+            <a href="#features" onclick="toggleMenu()">Features</a>
+            <a href="#screens" onclick="toggleMenu()">Gallery</a>
+            <a href="vibemusic.apk" class="nav-btn">Download</a>
+        </div>
+        <div class="menu-btn" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars" id="menuIcon"></i>
         </div>
     </nav>
 
@@ -174,20 +177,46 @@
             <div class="footer-brand">
                 <img src="assets/logo.png" alt="Logo" class="footer-logo">
                 <h3>Vibe Music</h3>
-                <p>Advanced Edition v0.5.10</p>
+                <div class="version-badge">Advanced Edition v0.5.10</div>
             </div>
+
+            <div class="footer-divider"></div>
+
             <div class="social-links">
-                <a href="https://github.com/bloodbadshah" class="social-icon"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.instagram.com/blood__badshah/" class="social-icon"><i
-                        class="fa-brands fa-instagram"></i></a>
+                <a href="https://github.com/bloodbadshah" class="social-icon" target="_blank">
+                    <i class="fa-brands fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.instagram.com/blood__badshah/" class="social-icon" target="_blank">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Vibe Music. All rights reserved. Created by Blood Badshah(ANKIT) with ❤️ for Music.</p>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Vibe Music. All rights reserved.</p>
+                <p class="credit">Created by <span>Blood Badshah (ANKIT)</span> with <i
+                        class="fa-solid fa-heart heartbeat"></i> for Music.</p>
+            </div>
         </div>
     </footer>
 
     <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuIcon = document.getElementById('menuIcon');
+            navLinks.classList.toggle('active');
+
+            if (navLinks.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            } else {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
