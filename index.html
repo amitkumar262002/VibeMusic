@@ -198,10 +198,31 @@
             });
         });
 
-        // Auto-download query parameter
+        // Auto-download and Shared Link Handling
         window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('download') === 'true') {
+            const songId = urlParams.get('v');
+            const shouldDownload = urlParams.get('download') === 'true';
+
+            if (songId) {
+                // If a song link is shared, show a premium alert
+                const announcement = document.createElement('div');
+                announcement.className = 'song-share-overlay';
+                announcement.innerHTML = `
+                    <div class="song-share-card">
+                        <i class="fa-solid fa-music song-icon"></i>
+                        <h2>Shared Song Detected</h2>
+                        <p>Someone shared a track with you! Download <b>Vibe Music</b> to listen to this song with premium AI quality.</p>
+                        <a href="vibemusic.apk" class="download-btn">
+                            <i class="fa-brands fa-android"></i> Download App Now
+                        </a>
+                        <button onclick="this.parentElement.parentElement.remove()" class="close-overlay">Maybe Later</button>
+                    </div>
+                `;
+                document.body.appendChild(announcement);
+            }
+
+            if (shouldDownload) {
                 const link = document.createElement('a');
                 link.href = 'vibemusic.apk';
                 link.download = 'vibemusic.apk';

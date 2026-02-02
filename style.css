@@ -498,3 +498,112 @@ body {
         font-size: 1.2rem;
     }
 }
+
+/* Song Share Overlay */
+.song-share-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.song-share-card {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    border-radius: 35px;
+    text-align: center;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 45, 85, 0.1);
+    animation: slideUp 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.song-icon {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    display: block;
+    animation: pulseIcon 2s infinite;
+}
+
+@keyframes pulseIcon {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0px var(--primary));
+    }
+
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 15px var(--primary));
+    }
+
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 0px var(--primary));
+    }
+}
+
+.song-share-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.song-share-card p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.5;
+}
+
+.song-share-card .download-btn {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.close-overlay {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.95rem;
+    text-decoration: underline;
+    transition: 0.3s;
+}
+
+.close-overlay:hover {
+    color: white;
+}
