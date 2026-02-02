@@ -65,7 +65,7 @@
                 <div class="hero-btns">
                     <a href="vibemusic.apk" class="download-btn">
                         <i class="fa-brands fa-android"></i> Download APK
-                        <span class="btn-sub">Size: ~29MB</span>
+                        <span class="btn-sub">Size: ~31MB</span>
                     </a>
                     <a href="#features" class="secondary-btn">Learn More</a>
                 </div>
@@ -197,6 +197,19 @@
                 });
             });
         });
+
+        // Auto-download query parameter
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('download') === 'true') {
+                const link = document.createElement('a');
+                link.href = 'vibemusic.apk';
+                link.download = 'vibemusic.apk';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        };
     </script>
 </body>
 
