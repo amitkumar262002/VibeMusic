@@ -553,7 +553,12 @@
             }
 
             // --- SECURITY & AI ANALYSIS ---
-            const badWords = ["bhosdi", "madarchod", "baap", "mc", "bc", "chutiya", "kutta", "kamina", "saala", "stupid", "idiot", "fake", "bekar"];
+            // Expanded blacklist to catch variations including "madhatrchod"
+            const badWords = [
+                "bhosdi", "madarchod", "madharchod", "madhatrchod", "baap", "mc", "bc",
+                "chutiya", "kutta", "kamina", "saala", "stupid", "idiot", "fake", "bekar",
+                "randi", "gandu", "fuck", "shit", "bitch", "scam", "useless", "bakwas"
+            ];
             const lowerText = text.toLowerCase();
             const lowerName = name.toLowerCase();
 
