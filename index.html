@@ -490,7 +490,13 @@
                 point.style.top = region.top;
                 point.style.left = region.left;
                 point.style.animationDelay = `${index * 0.5}s`; // Staggered pulses
-                point.setAttribute('data-city', `${region.name}: ${region.users} Live Users`);
+
+                // Add tooltip span
+                const tooltip = document.createElement('span');
+                tooltip.className = 'map-tooltip';
+                tooltip.innerHTML = `<strong>${region.name}</strong><br>${region.users} Live Users`;
+                point.appendChild(tooltip);
+
                 mapContainer.appendChild(point);
             });
 
