@@ -232,16 +232,19 @@
             <h2 style="margin-bottom: 1.5rem;">Rate Vibe Music</h2>
             <div class="form-group">
                 <label>Your Name</label>
-                <input type="text" id="reviewName" placeholder="Enter your name">
+                <input type="text" id="reviewName" placeholder="Your Name" class="review-input">
             </div>
             <div class="form-group">
                 <label>Rating</label>
-                <select id="reviewRating"
-                    style="width:100%; padding: 1rem; background:rgba(255,255,255,0.05); color:white; border-radius:10px; border:1px solid rgba(255,255,255,0.1);">
-                    <option value="5">⭐⭐⭐⭐⭐ (Excellent)</option>
-                    <option value="4">⭐⭐⭐⭐ (Good)</option>
-                    <option value="3">⭐⭐⭐ (Average)</option>
-                </select>
+                <!-- Interactive Star Rating -->
+                <div class="rating-input">
+                    <input type="hidden" id="reviewRating" value="0">
+                    <i class="fa-regular fa-star" data-value="1"></i>
+                    <i class="fa-regular fa-star" data-value="2"></i>
+                    <i class="fa-regular fa-star" data-value="3"></i>
+                    <i class="fa-regular fa-star" data-value="4"></i>
+                    <i class="fa-regular fa-star" data-value="5"></i>
+                </div>
             </div>
             <div class="form-group">
                 <label>Feedback</label>
@@ -542,89 +545,221 @@
             document.getElementById('reviewModal').style.display = 'none';
         }
 
+        // --- REVIEW SYSTEM LOGIC ---
+
+        // On Load: Load reviews from LocalStorage
+        loadReviews();
+        checkAdmin();
+
+        // Setup Interactive Stars
+        const starInputs = document.querySelectorAll('.rating-input i');
+        let currentRating = 0;
+
+        starInputs.forEach(star => {
+            star.addEventListener('click', () => {
+                currentRating = parseInt(star.getAttribute('data-value'));
+                document.getElementById('reviewRating').value = currentRating;
+                updateStarVisuals(currentRating);
+            });
+        });
+
+        function updateStarVisuals(rating) {
+            starInputs.forEach(star => {
+                const val = parseInt(star.getAttribute('data-value'));
+                if (val <= rating) {
+                    star.classList.add('active');
+                    star.classList.replace('fa-regular', 'fa-solid');
+                } else {
+                    star.classList.remove('active');
+                    star.classList.replace('fa-solid', 'fa-regular');
+                }
+            });
+        }
+
         function submitReview() {
             const name = document.getElementById('reviewName').value;
-            const rating = document.getElementById('reviewRating').value;
             const text = document.getElementById('reviewText').value;
+            const rating = currentRating;
 
-            if (!name || !text) {
-                alert("Please fill in all fields to vibe with us!");
+            if (!name || !text || rating === 0) {
+                alert("Please fill in all fields and tap a star to rate!");
                 return;
             }
 
-            // --- SECURITY & AI ANALYSIS ---
-            // Expanded blacklist to catch variations including "madhatrchod"
+            // Security Check
             const badWords = [
                 "bhosdi", "madarchod", "madharchod", "madhatrchod", "baap", "mc", "bc",
                 "chutiya", "kutta", "kamina", "saala", "stupid", "idiot", "fake", "bekar",
-                "randi", "gandu", "fuck", "shit", "bitch", "scam", "useless", "bakwas"
+                "randi", "gandu", "fuck", "shit", "bitch", "scam", "useless", "bakwas",
+                "teri maa ki chut", "bihar ka kutta", "madarchod", "bhosdiwale", "bhosdike",
+                "bhosdike madarchod", "chhakka", "chhakke", "chhakke madarchod",
+                "chhakke madarchod randi", "teri bahenchod", "teri bahenchod randi",
+                "loare", "loare madarchod", "teri maa randi", "haramjyda"
             ];
-            const lowerText = text.toLowerCase();
-            const lowerName = name.toLowerCase();
 
-            // Check for abusive content
-            const isAbusive = badWords.some(word => lowerText.includes(word) || lowerName.includes(word));
-
-            if (isAbusive) {
-                // Sarcastic/Funny Rejection (User thinks it's a server error or AI roast)
+            if (badWords.some(word => text.toLowerCase().includes(word) || name.toLowerCase().includes(word))) {
                 alert("⚠️ Security Alert: Vibe AI detected negative energy. Tera baap hu, tameez se baat kar! 🚫");
-                return; // Do NOT add the review
+                return;
             }
 
-            // --- SUCCESSFUL REVIEW ---
+            // Create Review Object
+            const review = {
+                id: Date.now(),
+                name: name,
+                rating: rating,
+                text: text,
+                timestamp: Date.now(),
+                dateStr: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+            };
 
-            // 1. Celebrate with Fireworks if positive
-            if (rating >= 4) {
-                launchFireworks();
-                // Play subtle success sound if possible (omitted for strictly visual request)
-            }
+            // Save to LocalStorage
+            saveReview(review);
 
-            // 2. Create Professional Review Card
-            const card = document.createElement('div');
-            card.className = 'review-card';
-            card.style.animation = 'slideIn 0.5s ease-out'; // Add slide animation
+            // Celebrate for high ratings
+            if (rating >= 4) launchFireworks();
 
-            // Generate Stars HTML with interaction
-            let starsHtml = '';
-            for (let i = 0; i < 5; i++) {
-                if (i < rating) starsHtml += '<i class="fa-solid fa-star" style="color: #ffd700; text-shadow: 0 0 5px #ffd700;"></i>';
-                else starsHtml += '<i class="fa-regular fa-star" style="color: #555;"></i>';
-            }
-
-            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-
-            card.innerHTML = `
-                <div class="reviewer-profile">
-                    <div class="reviewer-img" style="background: linear-gradient(135deg, #FF0055, #FF00CC); box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);">${name.charAt(0).toUpperCase()}</div>
-                    <div class="reviewer-info">
-                        <h4 style="display: flex; align-items: center; gap: 5px;">
-                            ${name} 
-                            <i class="fa-solid fa-circle-check" style="color: #00ffcc; font-size: 0.8rem;" title="Verified Vibe User"></i>
-                        </h4>
-                        <div class="stars">${starsHtml}</div>
-                    </div>
-                </div>
-                <p class="review-text" style="font-size: 1rem; color: #eee;">"${text}"</p>
-                <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
-                    <span class="review-date" style="color: rgba(255,255,255,0.4); font-size: 0.8rem;">${today}</span>
-                    <span style="font-size: 0.8rem; color: #00ffcc; background: rgba(0, 255, 204, 0.1); padding: 2px 8px; border-radius: 4px;">Verified Review</span>
-                </div>
-            `;
-
-            // Add to container (prepend)
-            const container = document.getElementById('reviewsContainer');
-            container.insertBefore(card, container.firstChild);
-
-            // Close and Reset
+            // UI Reset
             closeReviewModal();
             document.getElementById('reviewName').value = '';
             document.getElementById('reviewText').value = '';
+            currentRating = 0;
+            updateStarVisuals(0);
 
-            // Scroll to it
-            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-            // Show Success Notification
+            // Reload & Scroll
+            loadReviews();
             showToast("Review Published! Welcome to the Vibe Tribe 🚀");
+        }
+
+        function saveReview(review) {
+            let reviews = JSON.parse(localStorage.getItem('vibe_reviews') || '[]');
+            reviews.unshift(review); // Add to top
+            localStorage.setItem('vibe_reviews', JSON.stringify(reviews));
+        }
+
+        function loadReviews() {
+            const container = document.getElementById('reviewsContainer');
+            container.innerHTML = ''; // Request clear
+
+            let reviews = JSON.parse(localStorage.getItem('vibe_reviews') || '[]');
+
+            // Filter: Only show last 24 Hours
+            const now = Date.now();
+            const validReviews = reviews.filter(r => (now - r.timestamp) < 24 * 60 * 60 * 1000);
+
+            // Update Storage if cleanup happened
+            if (reviews.length !== validReviews.length) {
+                localStorage.setItem('vibe_reviews', JSON.stringify(validReviews));
+            }
+
+            // Update Stats Dashboard
+            updateStats(validReviews);
+
+            validReviews.forEach(r => {
+                const card = createReviewCard(r);
+                container.appendChild(card);
+            });
+        }
+
+        function createReviewCard(r) {
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            card.dataset.id = r.id; // For admin deletion
+
+            let starsHtml = '';
+            for (let i = 0; i < 5; i++) {
+                starsHtml += (i < r.rating)
+                    ? '<i class="fa-solid fa-star" style="color: #ffd700; text-shadow: 0 0 5px #ffd700;"></i>'
+                    : '<i class="fa-regular fa-star" style="color: #555;"></i>';
+            }
+
+            card.innerHTML = `
+                    <button class="delete-btn" onclick="deleteReview(${r.id})"><i class="fa-solid fa-trash"></i></button>
+                    <div class="reviewer-profile">
+                        <div class="reviewer-img" style="background: linear-gradient(135deg, #FF0055, #FF00CC); box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);">${r.name.charAt(0).toUpperCase()}</div>
+                        <div class="reviewer-info">
+                            <h4 style="display: flex; align-items: center; gap: 5px;">
+                                ${r.name} 
+                                <i class="fa-solid fa-circle-check" style="color: #00ffcc; font-size: 0.8rem;" title="Verified Vibe User"></i>
+                            </h4>
+                            <div class="stars">${starsHtml}</div>
+                        </div>
+                    </div>
+                    <p class="review-text" style="font-size: 1rem; color: #eee;">"${r.text}"</p>
+                    <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        <span class="review-date" style="color: rgba(255,255,255,0.4); font-size: 0.8rem;">${r.dateStr}</span>
+                        <span style="font-size: 0.8rem; color: #00ffcc; background: rgba(0, 255, 204, 0.1); padding: 2px 8px; border-radius: 4px;">Verified Review</span>
+                    </div>
+                `;
+            return card;
+        }
+
+        // --- ADMIN CONTROLS ---
+        function checkAdmin() {
+            // Secret Admin Toggle: Double Click on the "User Stories" title
+            const title = document.querySelector('.reviews-section h2');
+            if (title) {
+                title.style.cursor = 'pointer';
+                title.onclick = () => {
+                    const password = prompt("Owner Verification: Enter Passcode");
+                    if (password === "vibe2026") { // Simple protection
+                        enableAdminMode();
+                    }
+                };
+            }
+        }
+
+        function enableAdminMode() {
+            document.body.classList.add('admin-mode');
+            // Inject Styles dynamically to show delete buttons
+            const style = document.createElement('style');
+            style.innerHTML = `.admin-mode .delete-btn { display: block !important; } .admin-mode .admin-badge { display: block !important; }`;
+            document.head.appendChild(style);
+
+            const badge = document.createElement('div');
+            badge.className = 'admin-badge';
+            badge.innerText = '🛡️ OWNER MODE ACTIVE';
+            document.body.appendChild(badge);
+            showToast("Welcome Owner! You can now manage feedback.");
+        }
+
+        window.deleteReview = function (id) {
+            if (!confirm("Owner Action: Delete this review permanently?")) return;
+
+            let reviews = JSON.parse(localStorage.getItem('vibe_reviews') || '[]');
+            reviews = reviews.filter(r => r.id !== id);
+            localStorage.setItem('vibe_reviews', JSON.stringify(reviews));
+            loadReviews(); // Refresh UI
+        };
+
+        function updateStats(reviews) {
+            // Calculate Counts
+            const total = reviews.length + 1240; // Fake base to look popular
+            const totalStars = reviews.reduce((acc, r) => acc + r.rating, 0) + (1240 * 4.8);
+            const avg = (totalStars / total).toFixed(1);
+
+            document.getElementById('avgRating').innerText = avg;
+            document.getElementById('totalRatingCount').innerText = total.toLocaleString() + " ratings";
+
+            // Calculate Bars (Simulated + Real)
+            const counts = [0, 0, 0, 0, 0, 0]; // Index 1-5
+            reviews.forEach(r => counts[r.rating]++);
+
+            // Add fake base data distribution
+            counts[5] += 900;
+            counts[4] += 200;
+            counts[3] += 100;
+            counts[2] += 30;
+            counts[1] += 10;
+
+            const max = Math.max(...counts.slice(1));
+
+            for (let i = 1; i <= 5; i++) {
+                const bar = document.getElementById(`bar-${i}`);
+                if (bar) {
+                    const width = (counts[i] / max) * 100;
+                    bar.style.width = `${width}%`;
+                }
+            }
         }
 
         function launchFireworks() {

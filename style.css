@@ -1064,6 +1064,157 @@ body {
     }
 }
 
+/* Play Store Style Rating Summary */
+.rating-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rating-big {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+}
+
+.rating-big small {
+    display: block;
+    font-size: 1rem;
+    color: #aaa;
+    margin-top: 5px;
+    font-weight: normal;
+}
+
+.rating-bars {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.star-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: #ccc;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #00ffcc;
+    /* Vibe Green */
+    border-radius: 4px;
+    width: 0%;
+    /* Dynamic */
+    transition: width 0.5s ease-out;
+}
+
+/* Color grading for bars */
+.star-row:nth-child(1) .progress-fill {
+    background: #00ffcc;
+}
+
+/* 5 Star */
+.star-row:nth-child(2) .progress-fill {
+    background: #00e6b8;
+}
+
+/* 4 Star */
+.star-row:nth-child(3) .progress-fill {
+    background: #ffcc00;
+}
+
+/* 3 Star */
+.star-row:nth-child(4) .progress-fill {
+    background: #ff9900;
+}
+
+/* 2 Star */
+.star-row:nth-child(5) .progress-fill {
+    background: #ff3333;
+}
+
+/* 1 Star */
+
+/* Interactive Review Input Stars */
+.rating-input {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.rating-input i {
+    font-size: 2rem;
+    color: #444;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.rating-input i:hover,
+.rating-input i.active {
+    color: #ffd700;
+    transform: scale(1.2);
+}
+
+/* Admin Controls */
+.admin-badge {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: crimson;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    z-index: 1000;
+    display: none;
+    /* Hidden by default */
+    box-shadow: 0 0 10px crimson;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff3333;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: none;
+    /* Hidden by default */
+}
+
+.delete-btn:hover {
+    background: crimson;
+    color: white;
+}
+
+/* Review Card Fixes */
+.review-card {
+    position: relative;
+    /* For absolute positioning of delete btn */
+}
+
 .form-group {
     margin-bottom: 1.5rem;
 }
