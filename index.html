@@ -169,7 +169,8 @@
 
     <!-- Reviews Section -->
     <section class="reviews-section">
-        <h2 class="section-title">User <span class="gradient-text">Stories</span></h2>
+        <h2 class="section-title" id="userStoriesTitle" title="Double click for Owner Mode">User <span
+                class="gradient-text">Stories</span></h2>
         <div class="reviews-container" id="reviewsContainer">
             <!-- Initial Reviews -->
             <div class="review-card">
@@ -695,17 +696,41 @@
         }
 
         // --- ADMIN CONTROLS ---
+        // --- ADMIN CONTROLS ---
         function checkAdmin() {
-            // Secret Admin Toggle: Double Click on the "User Stories" title
-            const title = document.querySelector('.reviews-section h2');
+            // Method 1: Double Click on the "User Stories" Title
+            const title = document.getElementById('userStoriesTitle');
             if (title) {
                 title.style.cursor = 'pointer';
-                title.onclick = () => {
-                    const password = prompt("Owner Verification: Enter Passcode");
-                    if (password === "vibe2026") { // Simple protection
-                        enableAdminMode();
-                    }
+                title.ondblclick = () => {
+                    triggerAdminLogin();
                 };
+            }
+
+            // Method 2: Visible Link in Footer (Auto-created if not present)
+            if (!document.getElementById('adminLinkBtn')) {
+                const footer = document.querySelector('footer');
+                if (footer) {
+                    const link = document.createElement('a');
+                    link.id = 'adminLinkBtn';
+                    link.innerText = 'Admin Access';
+                    link.style.color = '#555';
+                    link.style.textDecoration = 'none';
+                    link.style.fontSize = '0.8rem';
+                    link.style.marginLeft = '20px';
+                    link.style.cursor = 'pointer';
+                    link.onclick = triggerAdminLogin;
+                    footer.appendChild(link);
+                }
+            }
+        }
+
+        function triggerAdminLogin() {
+            const password = prompt("Owner Verification: Enter Passcode");
+            if (password === "vibe2026") {
+                enableAdminMode();
+            } else if (password !== null && password !== "") {
+                alert("Access Denied");
             }
         }
 
