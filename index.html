@@ -472,9 +472,13 @@
             if (!window.shayeriData) return;
             const randomItem = window.shayeriData[Math.floor(Math.random() * window.shayeriData.length)];
             const textElement = document.getElementById('shayeriText');
+
+            // Security: Strip trailing #numbers just in case
+            const cleanText = randomItem.content.replace(/\s*#\s*\d+$/, '').trim();
+
             textElement.style.opacity = 0;
             setTimeout(() => {
-                textElement.innerText = randomItem.content;
+                textElement.innerText = cleanText;
                 textElement.style.opacity = 1;
             }, 300);
         }
@@ -609,7 +613,7 @@
             }
 
             // Security Check (Hindi/English abuse filter)
-            const badWords = ["bhosdi", "madarchod", "madharchod", "baap", "mc", "bc", "chutiya", "kutta", "randi", "gandu", "haram"];
+            const badWords = ["bhosdi", "madarchod", "madharchod", "baap", "mc", "bc", "chutiya", "kutta", "randi", "gandu", "haram", "bhosdi", "madarchod", "madharchod", "madhatrchod", "baap", "mc", "bc", "chutiya", "kutta", "kamina", "saala", "stupid", "idiot", "fake", "bekar", "randi", "gandu", "fuck", "shit", "bitch", "scam", "useless", "bakwas", "teri maa ki chut", "bihar ka kutta", "madarchod", "bhosdiwale", "bhosdike", "bhosdike madarchod", "chhakka", "chhakke", "chhakke madarchod", "chhakke madarchod randi", "teri bahenchod", "teri bahenchod randi", "teri bahenchod randi madarchod", 'loude',];
             if (badWords.some(word => text.toLowerCase().includes(word) || name.toLowerCase().includes(word))) {
                 alert("🚫 Security Alert: Vibe AI detected negative energy. Tera baap hu, tameez se baat kar! 🚫");
                 return;
