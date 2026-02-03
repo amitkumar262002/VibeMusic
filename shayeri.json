@@ -1,0 +1,227 @@
+{
+    "analytics": {
+        "total_installs": 85,
+        "active_users": 62,
+        "note": "We are just getting started! Join the early Vibe Tribe.",
+        "regions": [
+            {
+                "name": "Delhi",
+                "top": "35%",
+                "left": "30%",
+                "users": 15
+            },
+            {
+                "name": "Haryana",
+                "top": "32%",
+                "left": "28%",
+                "users": 12
+            },
+            {
+                "name": "Bihar",
+                "top": "40%",
+                "left": "55%",
+                "users": 18
+            },
+            {
+                "name": "Kolkata",
+                "top": "45%",
+                "left": "65%",
+                "users": 8
+            },
+            {
+                "name": "Uttar Pradesh",
+                "top": "38%",
+                "left": "45%",
+                "users": 20
+            }
+        ]
+    },
+    "updates": [
+        {
+            "id": 1,
+            "type": "shayeri",
+            "content": "Vibe Music chale to dil khud hi gaane lage,\nHar beat pe jazbaat apne rang dikhane lage.\nHeadphone laga, duniya ko thoda side kar de,\nVibe Music ke saath apni feeling ride kar le.",
+            "mood": "positive"
+        },
+        {
+            "id": 2,
+            "type": "shayeri",
+            "content": "Suron ki lehron par sapne behne lagte hain,\nVibe Music sunte hi lamhe mehke lagte hain.\nHar mood ka ilaaj hai yahan ke gaanon mein,\nVibe Music basa hai dil ke afsaanon mein.",
+            "mood": "romantic"
+        },
+        {
+            "id": 3,
+            "type": "joke",
+            "content": "Music sunte waqt volume full aur tension null hona chahiye! 🎧😎",
+            "mood": "funny"
+        },
+        {
+            "id": 4,
+            "type": "shayeri",
+            "content": "Na shor hai na hangama, bas sukoon ka saaya hai,\nVibe Music ne aaj fir dil ko behlaaya hai.",
+            "mood": "calm"
+        },
+        {
+            "id": 5,
+            "type": "shayeri",
+            "content": "Raat gehri hai magar sitare saath hain,\nVibe Music on hai to saari khushiyan paas hain.",
+            "mood": "night"
+        },
+        {
+            "id": 6,
+            "type": "quote",
+            "content": "Music is the strongest form of magic. ✨",
+            "mood": "inspiring"
+        },
+        {
+            "id": 7,
+            "type": "joke",
+            "content": "My taste in music ranges from 'You need Jesus' to 'You need therapy' to 'Let's party!' 🤪",
+            "mood": "funny"
+        },
+        {
+            "id": 8,
+            "type": "shayeri",
+            "content": "Kuchh ankahi si baatein hain, kuchh ansuni si raatein hain,\nVibe Music ke saath bas yaadein hi yaadein hain.",
+            "mood": "nostalgic"
+        },
+        {
+            "id": 9,
+            "type": "motivation",
+            "content": "Aaj ka din tumhara hai, bas play button dabao aur duniya jeet lo! 🚀",
+            "mood": "positive"
+        },
+        {
+            "id": 10,
+            "type": "shayeri",
+            "content": "Dil ke taar jud jaate hain, jab ye dhun bajti hai,\nVibe Music ki duniya mein har subah sajti hai.",
+            "mood": "happy"
+        },
+        {
+            "id": 11,
+            "type": "joke",
+            "content": "Agar zindagi ek playlist hoti, toh 'Skip Ad' ka button kahan hota? 🤔",
+            "mood": "funny"
+        },
+        {
+            "id": 12,
+            "type": "shayeri",
+            "content": "Mehfil mein rang jamata hai, tanhai mein saath nibhata hai,\nYe Vibe Music hi to hai, jo har mod par muskurata hai.",
+            "mood": "friendship"
+        },
+        {
+            "id": 13,
+            "type": "thought",
+            "content": "Sometimes lyrics explain what you're thinking better than you can. 🎶",
+            "mood": "deep"
+        },
+        {
+            "id": 14,
+            "type": "shayeri",
+            "content": "Zindagi ki raahon mein jab bhi thakan mile,\nVibe Music sun lena, wahan sukoon mile.",
+            "mood": "calm"
+        },
+        {
+            "id": 15,
+            "type": "joke",
+            "content": "Me: 'Just one more song.'\nAlso Me: *Listens to the whole album twice* 🕒",
+            "mood": "funny"
+        },
+        {
+            "id": 16,
+            "type": "shayeri",
+            "content": "Khamoshi mein bhi ek awaaz hoti hai,\nVibe Music suno, usme alag hi saaz hoti hai.",
+            "mood": "soulful"
+        },
+        {
+            "id": 17,
+            "type": "fact",
+            "content": "Did you know? Your heartbeat changes and mimics the music you listen to. ❤️🎵",
+            "mood": "interesting"
+        },
+        {
+            "id": 18,
+            "type": "shayeri",
+            "content": "Har pal ko khaas bana deta hai,\nYe music hi to hai jo dil ko dhadka deta hai.",
+            "mood": "exciting"
+        },
+        {
+            "id": 19,
+            "type": "joke",
+            "content": "Log kehte hain pyar andha hota hai. Maine kaha Music suno, woh behra nahi hota! 😂",
+            "mood": "funny"
+        },
+        {
+            "id": 20,
+            "type": "shayeri",
+            "content": "Sapno ki udaan ho ya yaadon ka safar,\nVibe Music hai saath, to darr kis baat ka magar.",
+            "mood": "confident"
+        },
+        {
+            "id": 21,
+            "type": "quote",
+            "content": "Where words fail, music speaks. 🎻",
+            "mood": "classic"
+        },
+        {
+            "id": 22,
+            "type": "shayeri",
+            "content": "Bheed mein bhi khud ko paana hai,\nVibe Music laga ke bas kho jaana hai.",
+            "mood": "introspective"
+        },
+        {
+            "id": 23,
+            "type": "joke",
+            "content": "I accidentally paused my music and heard my own breathing. Never again. 😱",
+            "mood": "funny"
+        },
+        {
+            "id": 24,
+            "type": "shayeri",
+            "content": "Subah ki chai aur Vibe Music ka saath,\nBas yahi to hai ek perfect shuruaat.",
+            "mood": "morning"
+        },
+        {
+            "id": 25,
+            "type": "motivation",
+            "content": "Don't stop the music, don't stop the grind. Let the rhythm guide you. 💪",
+            "mood": "hustle"
+        },
+        {
+            "id": 26,
+            "type": "shayeri",
+            "content": "Raaste mushkil hain par manzil paas hai,\nKaanon mein Vibe Music hai, to har pal khaas hai.",
+            "mood": "hopeful"
+        },
+        {
+            "id": 27,
+            "type": "joke",
+            "content": "My playlist is like a mood swing rollercoaster. Buckle up! 🎢",
+            "mood": "funny"
+        },
+        {
+            "id": 28,
+            "type": "shayeri",
+            "content": "Dhadkanon ki zubaan ban jaata hai,\nJab koi pasandida gaana chal jaata hai.",
+            "mood": "romantic"
+        },
+        {
+            "id": 29,
+            "type": "quote",
+            "content": "Life is a song. Love is the music. ❤️",
+            "mood": "romantic"
+        },
+        {
+            "id": 30,
+            "type": "shayeri",
+            "content": "Kuch lamhe fursat ke nikaal lo,\nVibe Music ke saath zindagi sambhaal lo.",
+            "mood": "relaxing"
+        },
+        {
+            "id": 31,
+            "type": "joke",
+            "content": "Why did the music teacher need a ladder? To reach the high notes! 🎼😂",
+            "mood": "funny"
+        }
+    ]
+}
