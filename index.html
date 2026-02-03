@@ -540,6 +540,9 @@
         // 4. Review System
         function openReviewModal() {
             document.getElementById('reviewModal').style.display = 'flex';
+            // Reset to 5 stars on open
+            currentRating = 5;
+            updateStarVisuals(5);
         }
 
         function closeReviewModal() {
@@ -554,15 +557,19 @@
 
         // Setup Interactive Stars
         const starInputs = document.querySelectorAll('.rating-input i');
-        let currentRating = 5; // Default to 5 Stars
-        updateStarVisuals(5); // Show them active immediately
+        let currentRating = 5; // Global state for rating
+
+        // Initial Visual Update
+        updateStarVisuals(5);
 
         starInputs.forEach(star => {
-            star.addEventListener('click', () => {
-                currentRating = parseInt(star.getAttribute('data-value'));
+            // Remove old listeners by cloning (simple hack) or just assume one run
+            // Adding click listener
+            star.onclick = function () {
+                currentRating = parseInt(this.getAttribute('data-value'));
                 document.getElementById('reviewRating').value = currentRating;
                 updateStarVisuals(currentRating);
-            });
+            };
         });
 
         function updateStarVisuals(rating) {
