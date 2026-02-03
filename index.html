@@ -553,7 +553,8 @@
 
         // Setup Interactive Stars
         const starInputs = document.querySelectorAll('.rating-input i');
-        let currentRating = 0;
+        let currentRating = 5; // Default to 5 Stars
+        updateStarVisuals(5); // Show them active immediately
 
         starInputs.forEach(star => {
             star.addEventListener('click', () => {

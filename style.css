@@ -1162,7 +1162,8 @@ body {
 
 .rating-input i {
     font-size: 2rem;
-    color: #444;
+    color: #888;
+    /* Brighter default color */
     cursor: pointer;
     transition: transform 0.2s, color 0.2s;
 }
