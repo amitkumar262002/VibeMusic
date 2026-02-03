@@ -540,7 +540,7 @@
         // 4. Review System
         function openReviewModal() {
             document.getElementById('reviewModal').style.display = 'flex';
-            // Reset to 5 stars on open
+            // Default to 5 stars on every open for premium feel
             currentRating = 5;
             updateStarVisuals(5);
         }
@@ -557,17 +557,26 @@
 
         // Setup Interactive Stars
         const starInputs = document.querySelectorAll('.rating-input i');
-        let currentRating = 5; // Global state for rating
+        let currentRating = 5;
 
-        // Initial Visual Update
-        updateStarVisuals(5);
-
+        // Apply visual logic to star elements
         starInputs.forEach(star => {
-            // Remove old listeners by cloning (simple hack) or just assume one run
-            // Adding click listener
             star.onclick = function () {
                 currentRating = parseInt(this.getAttribute('data-value'));
                 document.getElementById('reviewRating').value = currentRating;
+                updateStarVisuals(currentRating);
+                // Visual feedback pop
+                this.style.transform = 'scale(1.5)';
+                setTimeout(() => this.style.transform = 'scale(1.2)', 100);
+            };
+
+            // Hover effect
+            star.onmouseenter = function () {
+                const val = parseInt(this.getAttribute('data-value'));
+                updateStarVisuals(val);
+            };
+
+            star.onmouseleave = function () {
                 updateStarVisuals(currentRating);
             };
         });
@@ -577,37 +586,32 @@
                 const val = parseInt(star.getAttribute('data-value'));
                 if (val <= rating) {
                     star.classList.add('active');
-                    star.classList.replace('fa-regular', 'fa-solid');
+                    star.classList.remove('fa-regular');
+                    star.classList.add('fa-solid');
+                    star.style.color = '#ffd700'; // Force color
                 } else {
                     star.classList.remove('active');
-                    star.classList.replace('fa-solid', 'fa-regular');
+                    star.classList.remove('fa-solid');
+                    star.classList.add('fa-regular');
+                    star.style.color = '#888'; // Force default color
                 }
             });
         }
 
         function submitReview() {
-            const name = document.getElementById('reviewName').value;
-            const text = document.getElementById('reviewText').value;
+            const name = document.getElementById('reviewName').value.trim();
+            const text = document.getElementById('reviewText').value.trim();
             const rating = currentRating;
 
             if (!name || !text || rating === 0) {
-                alert("Please fill in all fields and tap a star to rate!");
+                showToast("⚠️ Sabhi fields bharna zaroori hai!");
                 return;
             }
 
-            // Security Check
-            const badWords = [
-                "bhosdi", "madarchod", "madharchod", "madhatrchod", "baap", "mc", "bc",
-                "chutiya", "kutta", "kamina", "saala", "stupid", "idiot", "fake", "bekar",
-                "randi", "gandu", "fuck", "shit", "bitch", "scam", "useless", "bakwas",
-                "teri maa ki chut", "bihar ka kutta", "madarchod", "bhosdiwale", "bhosdike",
-                "bhosdike madarchod", "chhakka", "chhakke", "chhakke madarchod",
-                "chhakke madarchod randi", "teri bahenchod", "teri bahenchod randi",
-                "loare", "loare madarchod", "teri maa randi", "haramjyda"
-            ];
-
+            // Security Check (Hindi/English abuse filter)
+            const badWords = ["bhosdi", "madarchod", "madharchod", "baap", "mc", "bc", "chutiya", "kutta", "randi", "gandu", "haram"];
             if (badWords.some(word => text.toLowerCase().includes(word) || name.toLowerCase().includes(word))) {
-                alert("⚠️ Security Alert: Vibe AI detected negative energy. Tera baap hu, tameez se baat kar! 🚫");
+                alert("🚫 Security Alert: Vibe AI detected negative energy. Tera baap hu, tameez se baat kar! 🚫");
                 return;
             }
 
@@ -622,21 +626,25 @@
             };
 
             // Save to LocalStorage
-            saveReview(review);
+            let reviews = JSON.parse(localStorage.getItem('vibe_reviews') || '[]');
+            reviews.unshift(review);
+            localStorage.setItem('vibe_reviews', JSON.stringify(reviews));
 
-            // Celebrate for high ratings
+            // Feedback and Refresh
             if (rating >= 4) launchFireworks();
 
-            // UI Reset
             closeReviewModal();
             document.getElementById('reviewName').value = '';
             document.getElementById('reviewText').value = '';
-            currentRating = 0;
-            updateStarVisuals(0);
 
-            // Reload & Scroll
-            loadReviews();
-            showToast("Review Published! Welcome to the Vibe Tribe 🚀");
+            loadReviews(); // This updates the screen with your new feedback
+            showToast("🚀 Feedback Published! Aapki story live hai.");
+
+            // Scroll to the new review smoothly
+            setTimeout(() => {
+                const firstReview = document.querySelector('#reviewsContainer .review-card');
+                if (firstReview) firstReview.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 500);
         }
 
         function saveReview(review) {
@@ -672,7 +680,7 @@
         function createReviewCard(r) {
             const card = document.createElement('div');
             card.className = 'review-card';
-            card.dataset.id = r.id; // For admin deletion
+            card.dataset.id = r.id;
 
             let starsHtml = '';
             for (let i = 0; i < 5; i++) {
@@ -682,39 +690,57 @@
             }
 
             card.innerHTML = `
-                    <button class="delete-btn" onclick="deleteReview(${r.id})"><i class="fa-solid fa-trash"></i></button>
-                    <div class="reviewer-profile">
-                        <div class="reviewer-img" style="background: linear-gradient(135deg, #FF0055, #FF00CC); box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);">${r.name.charAt(0).toUpperCase()}</div>
-                        <div class="reviewer-info">
-                            <h4 style="display: flex; align-items: center; gap: 5px;">
-                                ${r.name} 
-                                <i class="fa-solid fa-circle-check" style="color: #00ffcc; font-size: 0.8rem;" title="Verified Vibe User"></i>
-                            </h4>
-                            <div class="stars">${starsHtml}</div>
-                        </div>
+                <div class="admin-controls" style="position: absolute; top: 10px; right: 10px; display: flex; gap: 8px;">
+                    <button class="delete-btn" onclick="editReview(${r.id})" style="background: rgba(0, 255, 204, 0.1); color: #00ffcc; border:none; padding:8px; border-radius:8px; cursor:pointer;" title="Edit Review"><i class="fa-solid fa-pen"></i></button>
+                    <button class="delete-btn" onclick="deleteReview(${r.id})" style="background: rgba(255, 0, 0, 0.1); color: #ff3333; border:none; padding:8px; border-radius:8px; cursor:pointer;" title="Delete Review"><i class="fa-solid fa-trash"></i></button>
+                </div>
+                <div class="reviewer-profile">
+                    <div class="reviewer-img" style="background: linear-gradient(135deg, #FF0055, #FF00CC); box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);">${r.name.charAt(0).toUpperCase()}</div>
+                    <div class="reviewer-info">
+                        <h4 style="display: flex; align-items: center; gap: 5px;">
+                            ${r.name} 
+                            <i class="fa-solid fa-circle-check" style="color: #00ffcc; font-size: 0.8rem;" title="Verified Vibe User"></i>
+                        </h4>
+                        <div class="stars">${starsHtml}</div>
                     </div>
-                    <p class="review-text" style="font-size: 1rem; color: #eee;">"${r.text}"</p>
-                    <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
-                        <span class="review-date" style="color: rgba(255,255,255,0.4); font-size: 0.8rem;">${r.dateStr}</span>
-                        <span style="font-size: 0.8rem; color: #00ffcc; background: rgba(0, 255, 204, 0.1); padding: 2px 8px; border-radius: 4px;">Verified Review</span>
-                    </div>
-                `;
+                </div>
+                <p class="review-text" style="font-size: 1rem; color: #eee; white-space: pre-wrap;">"${r.text}"</p>
+                <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <span class="review-date" style="color: rgba(255,255,255,0.4); font-size: 0.8rem;">${r.dateStr}</span>
+                    <span style="font-size: 0.8rem; color: #00ffcc; background: rgba(0, 255, 204, 0.1); padding: 2px 8px; border-radius: 4px;">Verified Review</span>
+                </div>
+            `;
             return card;
         }
 
-        // --- ADMIN CONTROLS ---
+        window.editReview = function (id) {
+            let reviews = JSON.parse(localStorage.getItem('vibe_reviews') || '[]');
+            const index = reviews.findIndex(rev => rev.id === id);
+            if (index === -1) return;
+
+            const newText = prompt("Owner Action: Edit Review Text", reviews[index].text);
+            if (newText !== null && newText.trim() !== "") {
+                reviews[index].text = newText.trim();
+                localStorage.setItem('vibe_reviews', JSON.stringify(reviews));
+                loadReviews();
+                showToast("✅ Review Updated");
+            }
+        };
+
         // --- ADMIN CONTROLS ---
         function checkAdmin() {
-            // Method 1: Double Click on the "User Stories" Title
+            // Method 1: Click on the "User Stories" Title for Hidden Access
             const title = document.getElementById('userStoriesTitle');
             if (title) {
                 title.style.cursor = 'pointer';
-                title.ondblclick = () => {
+                title.onclick = () => {
                     triggerAdminLogin();
                 };
+                // Extra hint for owner
+                title.title = "Owner Access Click";
             }
 
-            // Method 2: Visible Link in Footer (Auto-created if not present)
+            // Method 2: Visible Link in Footer
             if (!document.getElementById('adminLinkBtn')) {
                 const footer = document.querySelector('footer');
                 if (footer) {
@@ -726,7 +752,10 @@
                     link.style.fontSize = '0.8rem';
                     link.style.marginLeft = '20px';
                     link.style.cursor = 'pointer';
-                    link.onclick = triggerAdminLogin;
+                    link.onclick = (e) => {
+                        e.preventDefault();
+                        triggerAdminLogin();
+                    };
                     footer.appendChild(link);
                 }
             }
@@ -736,6 +765,7 @@
             const password = prompt("Owner Verification: Enter Passcode");
             if (password === "vibe2026") {
                 enableAdminMode();
+                showToast("🛡️ Owner Mode Active!");
             } else if (password !== null && password !== "") {
                 alert("Access Denied");
             }
