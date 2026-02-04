@@ -392,6 +392,24 @@ body {
     font-size: 1.5rem;
 }
 
+.feature-card.advanced .icon-box i {
+    animation: icon-pulse 3s infinite ease-in-out;
+}
+
+@keyframes icon-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        filter: brightness(100%);
+    }
+
+    50% {
+        transform: scale(1.1);
+        filter: brightness(130%);
+    }
+}
+
 .feature-card h3 {
     margin-bottom: 1rem;
     font-size: 1.25rem;
@@ -401,6 +419,32 @@ body {
     color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.5;
+}
+
+.feature-card.advanced {
+    background: linear-gradient(135deg, rgba(88, 86, 214, 0.05) 0%, rgba(255, 45, 85, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.feature-card.advanced:hover {
+    box-shadow: 0 15px 40px rgba(88, 86, 214, 0.15);
+    border-color: var(--primary);
+}
+
+.phone-frame.small {
+    width: 260px;
+    height: 520px;
+    border-width: 6px;
+    border-radius: 35px;
+}
+
+.caption {
+    margin-top: 1.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-main);
+    opacity: 0.9;
 }
 
 /* Footer Modern Redesign */

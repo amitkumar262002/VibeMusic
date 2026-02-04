@@ -1,0 +1,114 @@
+/* Analytics Section */
+.analytics-section {
+    padding: 80px 5%;
+    background: linear-gradient(180deg, rgba(88, 86, 214, 0.05) 0%, transparent 100%);
+}
+
+.analytics-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.analytics-data {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(138, 43, 226, 0.3);
+    transform: translateX(5px);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, rgba(255, 45, 85, 0.2), rgba(138, 43, 226, 0.2));
+    border: 1px solid rgba(255, 45, 85, 0.3);
+}
+
+.stat-icon i {
+    color: #ff2d55;
+}
+
+.stat-info h3 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    background: linear-gradient(135deg, #ff2d55, #8a2be2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-info p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Map Visual */
+.map-visual {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 25px;
+    border: 1px solid rgba(138, 43, 226, 0.2);
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+}
+
+.map-point {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+}
+
+.map-point:hover {
+    transform: translate(-50%, -50%) scale(1.2);
+    z-index: 1000 !important;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .analytics-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .map-visual {
+        height: 350px;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
+
+    .stat-info h3 {
+        font-size: 2rem;
+    }
+}
