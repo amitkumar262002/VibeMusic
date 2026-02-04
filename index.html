@@ -553,52 +553,37 @@
 
         // 4. Review System
         function openReviewModal() {
-            document.getElementById('reviewModal').style.display = 'flex';
-            // Reset form
+            const modal = document.getElementById('reviewModal');
+            if (modal) modal.style.display = 'flex';
             currentRating = 0;
             document.getElementById('reviewName').value = '';
             document.getElementById('reviewText').value = '';
             document.getElementById('reviewRating').value = '0';
-            // Initialize stars
             initializeStars();
             updateStarVisuals(0);
         }
 
         function closeReviewModal() {
-            document.getElementById('reviewModal').style.display = 'none';
+            const modal = document.getElementById('reviewModal');
+            if (modal) modal.style.display = 'none';
         }
 
-        // --- REVIEW SYSTEM LOGIC ---
-
-        // Setup Interactive Stars
         let currentRating = 0;
         let starInputs = [];
 
-        // On Load: Load reviews from LocalStorage
-        loadReviews();
-        checkAdmin();
-
-        // Initialize stars after DOM is ready
         function initializeStars() {
             starInputs = document.querySelectorAll('.rating-input i');
-
-            // Apply visual logic to star elements
             starInputs.forEach(star => {
                 star.onclick = function () {
                     currentRating = parseInt(this.getAttribute('data-value'));
                     document.getElementById('reviewRating').value = currentRating;
                     updateStarVisuals(currentRating);
-                    // Visual feedback pop
                     this.style.transform = 'scale(1.5)';
-                    setTimeout(() => this.style.transform = 'scale(1.2)', 100);
+                    setTimeout(() => (this.style.transform = 'scale(1.2)'), 100);
                 };
-
-                // Hover effect
                 star.onmouseenter = function () {
-                    const val = parseInt(this.getAttribute('data-value'));
-                    updateStarVisuals(val);
+                    updateStarVisuals(parseInt(this.getAttribute('data-value')));
                 };
-
                 star.onmouseleave = function () {
                     updateStarVisuals(currentRating);
                 };
@@ -609,20 +594,16 @@
             starInputs.forEach(star => {
                 const val = parseInt(star.getAttribute('data-value'));
                 if (val <= rating) {
-                    star.classList.add('active');
-                    star.classList.remove('fa-regular');
-                    star.classList.add('fa-solid');
-                    star.style.color = '#ffd700'; // Force color
+                    star.className = 'fa-solid fa-star';
+                    star.style.color = '#ffd700';
                 } else {
-                    star.classList.remove('active');
-                    star.classList.remove('fa-solid');
-                    star.classList.add('fa-regular');
-                    star.style.color = '#888'; // Force default color
+                    star.className = 'fa-regular fa-star';
+                    star.style.color = '#888';
                 }
             });
         }
 
-        function submitReview() {
+        async function submitReview() {
             const name = document.getElementById('reviewName').value.trim();
             const text = document.getElementById('reviewText').value.trim();
             const rating = currentRating;
@@ -632,306 +613,177 @@
                 return;
             }
 
-            // Security Check (Hindi/English abuse filter)
-            const badWords = ["bhosdi", "madarchod", "madharchod", "baap", "mc", "bc", "chutiya", "kutta", "randi", "gandu", "haram", "bhosdi", "madarchod", "madharchod", "madhatrchod", "baap", "mc", "bc", "chutiya", "kutta", "kamina", "saala", "stupid", "idiot", "fake", "bekar", "randi", "gandu", "fuck", "shit", "bitch", "scam", "useless", "bakwas", "teri maa ki chut", "bihar ka kutta", "madarchod", "bhosdiwale", "bhosdike", "bhosdike madarchod", "chhakka", "chhakke", "chhakke madarchod", "chhakke madarchod randi", "teri bahenchod", "teri bahenchod randi", "teri bahenchod randi madarchod", 'loude',];
+            const badWords = ["bhosdi", "madarchod", "madharchod", "mc", "bc", "chutiya", "kutta", "randi", "gandu"];
             if (badWords.some(word => text.toLowerCase().includes(word) || name.toLowerCase().includes(word))) {
-                alert("🚫 Security Alert: Vibe AI detected negative energy. Tera baap hu, tameez se baat kar! 🚫");
+                alert("🚫 Security Alert: Negative energy detected.");
                 return;
             }
 
-            // Create Review Object
             const review = {
-                id: Date.now(),
-                name: name,
-                rating: rating,
-                text: text,
-                timestamp: Date.now(),
+                name,
+                rating,
+                text,
                 dateStr: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
             };
 
-            // Save to LocalStorage
-            let reviews = JSON.parse(localStorage.getItem('vibe_reviews') || '[]');
-            reviews.unshift(review);
-            localStorage.setItem('vibe_reviews', JSON.stringify(reviews));
-
-            // Feedback and Refresh
-            if (rating >= 4) launchFireworks();
-
-            closeReviewModal();
-            document.getElementById('reviewName').value = '';
-            document.getElementById('reviewText').value = '';
-
-            loadReviews(); // This updates the screen with your new feedback
-            showToast("🚀 Feedback Published! Aapki story live hai.");
-
-            // Scroll to the new review smoothly
-            setTimeout(() => {
-                const firstReview = document.querySelector('#reviewsContainer .review-card');
-                if (firstReview) firstReview.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 500);
-        }
-
-        function saveReview(review) {
-            let reviews = JSON.parse(localStorage.getItem('vibe_reviews') || '[]');
-            reviews.unshift(review); // Add to top
-            localStorage.setItem('vibe_reviews', JSON.stringify(reviews));
-        }
-
-        function loadReviews() {
-            const container = document.getElementById('reviewsContainer');
-            container.innerHTML = ''; // Request clear
-
-            let reviews = JSON.parse(localStorage.getItem('vibe_reviews') || '[]');
-
-            // Filter: Only show last 72 Hours (3 days)
-            const now = Date.now();
-            const validReviews = reviews.filter(r => (now - r.timestamp) < 72 * 60 * 60 * 1000);
-
-            // Update Storage if cleanup happened
-            if (reviews.length !== validReviews.length) {
-                localStorage.setItem('vibe_reviews', JSON.stringify(validReviews));
+            showToast("⏳ Syncing to Vibe Network...");
+            const success = await window.submitReviewToFirebase(review);
+            if (success) {
+                if (rating >= 4) launchFireworks();
+                closeReviewModal();
+                showToast("🚀 Live ho gaya! Sabhi phones par updates dikhenge.");
             }
-
-            // Update Stats Dashboard
-            updateStats(validReviews);
-
-            validReviews.forEach(r => {
-                const card = createReviewCard(r);
-                container.appendChild(card);
-            });
         }
+
+        window.renderReviews = function (reviews) {
+            const container = document.getElementById('reviewsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            if (reviews.length === 0) {
+                container.innerHTML =
+                    '<p style="color: rgba(255,255,255,0.4); text-align: center; padding: 40px;">No stories yet. Be the first!</p>';
+                return;
+            }
+            reviews.forEach(r => container.appendChild(createReviewCard(r)));
+            updateStats(reviews);
+        };
 
         function createReviewCard(r) {
             const card = document.createElement('div');
             card.className = 'review-card';
             card.dataset.id = r.id;
+            const isOwner = localStorage.getItem('vibe_owner_mode') === 'true';
 
-            let starsHtml = '';
+            let stars = '';
             for (let i = 0; i < 5; i++) {
-                starsHtml += (i < r.rating)
-                    ? '<i class="fa-solid fa-star" style="color: #ffd700; text-shadow: 0 0 5px #ffd700;"></i>'
-                    : '<i class="fa-regular fa-star" style="color: #555;"></i>';
+                stars += i < r.rating
+                    ? '<i class="fa-solid fa-star" style="color:#ffd700;"></i>'
+                    : '<i class="fa-regular fa-star" style="color:#555;"></i>';
             }
 
-            // Check if owner mode is active
-            const isOwnerMode = localStorage.getItem('vibe_owner_mode') === 'true';
-            const adminControlsDisplay = isOwnerMode ? 'flex' : 'none';
-
             card.innerHTML = `
-                <div class="admin-controls" style="position: absolute; top: 10px; right: 10px; display: ${adminControlsDisplay}; gap: 8px;">
-                    <button class="delete-btn" onclick="editReview(${r.id})" style="background: rgba(0, 255, 204, 0.1); color: #00ffcc; border:none; padding:8px; border-radius:8px; cursor:pointer;" title="Edit Review"><i class="fa-solid fa-pen"></i></button>
-                    <button class="delete-btn" onclick="deleteReview(${r.id})" style="background: rgba(255, 0, 0, 0.1); color: #ff3333; border:none; padding:8px; border-radius:8px; cursor:pointer;" title="Delete Review"><i class="fa-solid fa-trash"></i></button>
+                <div class="admin-controls" style="position: absolute; top: 10px; right: 10px; display: ${isOwner ? 'flex' : 'none'}; gap: 8px;">
+                    <button onclick="editReview('${r.id}')" style="background:rgba(0,255,204,0.1); color:#00ffcc; border:none; padding:8px; border-radius:8px; cursor:pointer;"><i class="fa-solid fa-pen"></i></button>
+                    <button onclick="deleteReview('${r.id}')" style="background:rgba(255,0,0,0.1); color:#ff3333; border:none; padding:8px; border-radius:8px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
                 </div>
                 <div class="reviewer-profile">
-                    <div class="reviewer-img" style="background: linear-gradient(135deg, #FF0055, #FF00CC); box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);">${r.name.charAt(0).toUpperCase()}</div>
+                    <div class="reviewer-img" style="background:linear-gradient(135deg,#FF0055,#FF00CC);">${r.name.charAt(0).toUpperCase()}</div>
                     <div class="reviewer-info">
-                        <h4 style="display: flex; align-items: center; gap: 5px;">
-                            ${r.name} 
-                            <i class="fa-solid fa-circle-check" style="color: #00ffcc; font-size: 0.8rem;" title="Verified Vibe User"></i>
-                        </h4>
-                        <div class="stars">${starsHtml}</div>
+                        <h4>${r.name} <i class="fa-solid fa-circle-check" style="color:#00ffcc; font-size:0.8rem;"></i></h4>
+                        <div class="stars">${stars}</div>
                     </div>
                 </div>
-                <p class="review-text" style="font-size: 1rem; color: #eee; white-space: pre-wrap;">"${r.text}"</p>
-                <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
-                    <span class="review-date" style="color: rgba(255,255,255,0.4); font-size: 0.8rem;">${r.dateStr}</span>
-                    <span style="font-size: 0.8rem; color: #00ffcc; background: rgba(0, 255, 204, 0.1); padding: 2px 8px; border-radius: 4px;">Verified Review</span>
+                <p class="review-text" style="font-size:1rem; color:#eee; white-space: pre-wrap;">"${r.text}"</p>
+                <div style="margin-top:15px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="color:rgba(255,255,255,0.4); font-size:0.8rem;">${r.dateStr}</span>
+                    <span style="font-size:0.8rem; color:#00ffcc; background:rgba(0, 255, 204, 0.1); padding:2px 8px; border-radius:4px;">Live Vibe</span>
                 </div>
             `;
             return card;
         }
 
-        window.editReview = function (id) {
-            let reviews = JSON.parse(localStorage.getItem('vibe_reviews') || '[]');
-            const index = reviews.findIndex(rev => rev.id === id);
-            if (index === -1) return;
-
-            const newText = prompt("Owner Action: Edit Review Text", reviews[index].text);
-            if (newText !== null && newText.trim() !== "") {
-                reviews[index].text = newText.trim();
-                localStorage.setItem('vibe_reviews', JSON.stringify(reviews));
-                loadReviews();
-                showToast("✅ Review Updated");
+        window.editReview = async function (id) {
+            const card = document.querySelector(`.review-card[data-id="${id}"]`);
+            const oldText = card.querySelector('.review-text').innerText.replace(/"/g, '');
+            const newText = prompt("Owner Action: Edit Review", oldText);
+            if (newText) {
+                showToast("⏳ Updating...");
+                await window.editReviewInFirebase(id, newText.trim());
+                showToast("✅ Updated!");
             }
         };
 
-        // --- ADMIN CONTROLS ---
-        function checkAdmin() {
-            // Method 1: Click on the "User Feedback" Title for Hidden Access
-            const title = document.getElementById('userStoriesTitle');
-            if (title) {
-                title.style.cursor = 'pointer';
-                title.ondblclick = () => {
-                    triggerAdminLogin();
-                };
-                // Extra hint for owner
-                title.title = "Owner Access Click";
+        window.deleteReview = async function (id) {
+            if (confirm("Delete permanently from all devices?")) {
+                showToast("🗑️ Removing...");
+                await window.deleteReviewFromFirebase(id);
+                showToast("✅ Removed!");
             }
+        };
 
-            // Method 2: Visible Link in Footer
-            if (!document.getElementById('adminLinkBtn')) {
-                const footer = document.querySelector('footer');
-                if (footer) {
-                    const link = document.createElement('a');
-                    link.id = 'adminLinkBtn';
-                    link.innerText = 'Admin Access';
-                    link.style.color = '#555';
-                    link.style.textDecoration = 'none';
-                    link.style.fontSize = '0.8rem';
-                    link.style.marginLeft = '20px';
-                    link.style.cursor = 'pointer';
-                    link.onclick = (e) => {
-                        e.preventDefault();
-                        triggerAdminLogin();
-                    };
-                    footer.appendChild(link);
-                }
-            }
-        }
-
+        // ADMIN LOGIC
         function triggerAdminLogin() {
-            const password = prompt("Owner Verification: Enter Passcode");
-            if (password === "vibeowner2026") {
+            if (prompt("Owner Passcode") === "vibeowner2026") {
                 enableAdminMode();
                 showToast("🛡️ Owner Mode Active!");
-            } else if (password !== null && password !== "") {
-                alert("Access Denied");
             }
         }
 
         function enableAdminMode() {
             document.body.classList.add('admin-mode');
             localStorage.setItem('vibe_owner_mode', 'true');
-            loadReviews(); // Refresh to show admin controls
-            const controls = document.querySelectorAll('.admin-controls');
-            controls.forEach(ctrl => ctrl.style.display = 'flex');
-
-            // Inject Styles dynamically to show delete buttons
-            const style = document.createElement('style');
-            style.innerHTML = `.admin-mode .delete-btn { display: block !important; } .admin-mode .admin-badge { display: block !important; }`;
-            document.head.appendChild(style);
-
-            const badge = document.createElement('div');
-            badge.className = 'admin-badge';
-            badge.innerText = '🛡️ OWNER MODE ACTIVE';
-            document.body.appendChild(badge);
-            showToast("Welcome Owner! You can now manage feedback.");
+            document.querySelectorAll('.admin-controls').forEach(c => (c.style.display = 'flex'));
+            if (!document.querySelector('.admin-badge')) {
+                const b = document.createElement('div');
+                b.className = 'admin-badge';
+                b.style.cssText =
+                    "position:fixed; top:20px; right:20px; background:#00ffcc; color:#000; padding:8px 15px; border-radius:20px; font-weight:bold; z-index:10000;";
+                b.innerText = '🛡️ OWNER';
+                document.body.appendChild(b);
+            }
         }
 
-        window.deleteReview = function (id) {
-            if (!confirm("Owner Action: Delete this review permanently?")) return;
-
-            let reviews = JSON.parse(localStorage.getItem('vibe_reviews') || '[]');
-            reviews = reviews.filter(r => r.id !== id);
-            localStorage.setItem('vibe_reviews', JSON.stringify(reviews));
-            loadReviews(); // Refresh UI
-        };
-
         function updateStats(reviews) {
-            // Calculate Counts
-            const total = reviews.length + 1240; // Fake base to look popular
-            const totalStars = reviews.reduce((acc, r) => acc + r.rating, 0) + (1240 * 4.8);
-            const avg = (totalStars / total).toFixed(1);
+            const total = reviews.length + 1240;
+            const avg = (
+                (reviews.reduce((acc, r) => acc + r.rating, 0) + 1240 * 4.8) /
+                total
+            ).toFixed(1);
+            if (document.getElementById('avgRating')) document.getElementById('avgRating').innerText = avg;
+            if (document.getElementById('totalRatingCount'))
+                document.getElementById('totalRatingCount').innerText = total.toLocaleString() + " ratings";
 
-            // Only update if elements exist
-            const avgRatingElem = document.getElementById('avgRating');
-            const totalRatingCountElem = document.getElementById('totalRatingCount');
-
-            if (avgRatingElem) avgRatingElem.innerText = avg;
-            if (totalRatingCountElem) totalRatingCountElem.innerText = total.toLocaleString() + " ratings";
-
-            // Calculate Bars (Simulated + Real)
-            const counts = [0, 0, 0, 0, 0, 0]; // Index 1-5
+            const counts = [0, 0, 0, 0, 0, 0];
             reviews.forEach(r => counts[r.rating]++);
-
-            // Add fake base data distribution
             counts[5] += 900;
             counts[4] += 200;
             counts[3] += 100;
             counts[2] += 30;
             counts[1] += 10;
-
             const max = Math.max(...counts.slice(1));
-
             for (let i = 1; i <= 5; i++) {
                 const bar = document.getElementById(`bar-${i}`);
-                if (bar) {
-                    const width = (counts[i] / max) * 100;
-                    bar.style.width = `${width}%`;
-                }
+                if (bar) bar.style.width = `${(counts[i] / max) * 100}%`;
             }
-        }
-
-        function launchFireworks() {
-            // Simple visual confetti/firework effect using CSS classes on body temporarily
-            const fireworkContainer = document.createElement('div');
-            fireworkContainer.style.position = 'fixed';
-            fireworkContainer.style.top = '0';
-            fireworkContainer.style.left = '0';
-            fireworkContainer.style.width = '100%';
-            fireworkContainer.style.height = '100%';
-            fireworkContainer.style.pointerEvents = 'none';
-            fireworkContainer.style.zIndex = '9999';
-            fireworkContainer.innerHTML = `
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5rem; animation: popUp 1s ease-out forwards;">🎉</div>
-                <div style="position: absolute; top: 30%; left: 20%; font-size: 3rem; animation: popUp 0.8s ease-out 0.2s forwards;">✨</div>
-                <div style="position: absolute; top: 40%; left: 80%; font-size: 3rem; animation: popUp 0.8s ease-out 0.4s forwards;">🚀</div>
-            `;
-            document.body.appendChild(fireworkContainer);
-
-            // Add keyframes if not exists (in style tag)
-            if (!document.getElementById('animStyles')) {
-                const style = document.createElement('style');
-                style.id = 'animStyles';
-                style.innerHTML = `
-                 @keyframes popUp {
-                    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-                    50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
-                    100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
-                 }
-                 @keyframes slideIn {
-                    from { opacity: 0; transform: translateY(20px); }
-                    to { opacity: 1; transform: translateY(0); }
-                 }
-               `;
-                document.head.appendChild(style);
-            }
-
-            setTimeout(() => fireworkContainer.remove(), 2000);
         }
 
         function showToast(msg) {
-            const toast = document.createElement('div');
-            toast.textContent = msg;
-            toast.style.position = 'fixed';
-            toast.style.bottom = '20px';
-            toast.style.left = '50%';
-            toast.style.transform = 'translateX(-50%)';
-            toast.style.background = '#00ffcc';
-            toast.style.color = '#000';
-            toast.style.padding = '10px 20px';
-            toast.style.borderRadius = '50px';
-            toast.style.fontWeight = 'bold';
-            toast.style.boxShadow = '0 0 20px rgba(0, 255, 204, 0.5)';
-            toast.style.zIndex = '10000';
-            toast.style.animation = 'slideIn 0.3s';
-
-            document.body.appendChild(toast);
+            const t = document.createElement('div');
+            t.innerText = msg;
+            t.style.cssText =
+                "position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#00ffcc; color:#000; padding:12px 25px; border-radius:50px; font-weight:bold; z-index:20000; animation:slideIn 0.3s; box-shadow:0 10px 30px rgba(0,255,204,0.4);";
+            document.body.appendChild(t);
             setTimeout(() => {
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 300);
+                t.style.opacity = '0';
+                setTimeout(() => t.remove(), 300);
             }, 3000);
         }
 
-        // Close modal if clicked outside
-        window.onclick = function (event) {
-            const modal = document.getElementById('reviewModal');
-            if (event.target == modal) {
-                closeReviewModal();
-            }
+        function launchFireworks() {
+            const f = document.createElement('div');
+            f.style.cssText =
+                "position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:10rem; z-index:9999; pointer-events:none; animation:pop 1.5s forwards;";
+            f.innerText = "🎉";
+            document.body.appendChild(f);
+            setTimeout(() => f.remove(), 1500);
         }
+
+        window.onclick = e => {
+            if (e.target == document.getElementById('reviewModal')) closeReviewModal();
+        };
+
+        // Initialize Admin Mode
+        window.addEventListener('load', () => {
+            const title = document.getElementById('userStoriesTitle');
+            if (title) {
+                title.style.cursor = 'pointer';
+                title.ondblclick = triggerAdminLogin;
+            }
+            if (localStorage.getItem('vibe_owner_mode') === 'true') enableAdminMode();
+        });
     </script>
     <script src="live-analytics.js" type="module"></script>
+    <script src="live-reviews.js" type="module"></script>
 </body>
 
 </html>
