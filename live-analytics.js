@@ -1,15 +1,7 @@
 // Real-time Analytics System for Vibe Music (Firebase Integrated)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import VibeVault from "./vibe-vault.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBVdjD4Bnv9FTuziPnhD3-GZxhcrNWjLoM",
-    authDomain: "vibemusic-7723f.firebaseapp.com",
-    projectId: "vibemusic-7723f",
-    storageBucket: "vibemusic-7723f.firebasestorage.app",
-    messagingSenderId: "322504383560",
-    appId: "1:322504383560:android:9bfd1edfb95e6a63b60c7d"
-};
+const firebaseConfig = VibeVault.k;
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
