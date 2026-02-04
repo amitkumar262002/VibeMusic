@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Music - Owner Dashboard</title>
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-music"></i>
+            <h2>Vibe Music</h2>
+        </div>
+
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active" onclick="showSection('analytics')">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('map')">
+                <i class="fas fa-map-marked-alt"></i>
+                <span>Live Map</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('feedback')">
+                <i class="fas fa-comments"></i>
+                <span>User Feedback</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('installs')">
+                <i class="fas fa-download"></i>
+                <span>Install Log</span>
+            </a>
+        </nav>
+
+        <div class="logout-section">
+            <button onclick="logout()" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <button class="menu-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1 class="page-title">Owner Dashboard</h1>
+            <div class="header-actions">
+                <button class="refresh-btn" onclick="loadAllData()">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <div class="live-indicator">
+                    <span class="pulse"></span>
+                    LIVE
+                </div>
+            </div>
+        </header>
+
+        <!-- Analytics Section -->
+        <section id="analytics-section" class="content-section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ff2d55, #ff6b9d);">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalInstalls">0</h3>
+                        <p>Total Installs</p>
+                        <span class="stat-badge live">📈 Live</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #8a2be2, #b57bee);">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="activeToday">0</h3>
+                        <p>Active Today</p>
+                        <span class="stat-badge">🎵 Now Playing</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #00d4ff, #00ffcc);">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="topLocation">Loading...</h3>
+                        <p>Top Region</p>
+                        <span class="stat-badge">🔥 Trending</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: linear-gradient(135deg, #ff9500, #ffb84d);">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="lastInstall">-</h3>
+                        <p>Last Install</p>
+                        <span class="stat-badge">⏱️ Recent</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Install Growth (Last 7 Days)</h3>
+                    <canvas id="installChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Top Locations</h3>
+                    <div id="locationChart"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section id="map-section" class="content-section">
+            <div class="map-container">
+                <h2>Live Install Tracking - India</h2>
+                <div id="indiaMap" class="india-map"></div>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <span class="legend-dot" style="background: rgba(255,45,85,0.9);"></span>
+                        High Activity (30+ users)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot" style="background: rgba(255,45,85,0.6);"></span>
+                        Medium Activity (10-30 users)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot" style="background: rgba(255,45,85,0.3);"></span>
+                        Low Activity (<10 users) </div>
+                    </div>
+                </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section id="feedback-section" class="content-section">
+            <div class="section-header">
+                <h2>User Feedback Management</h2>
+                <button class="action-btn" onclick="loadFeedback()">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
+            </div>
+
+            <div class="feedback-grid" id="feedbackGrid">
+                <!-- Feedback cards will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Installs Section -->
+        <section id="installs-section" class="content-section">
+            <div class="section-header">
+                <h2>Installation Log</h2>
+                <div class="filter-controls">
+                    <select id="locationFilter" onchange="filterInstalls()">
+                        <option value="all">All Locations</option>
+                    </select>
+                    <select id="dateFilter" onchange="filterInstalls()">
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="all">All Time</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="installs-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Location</th>
+                            <th>Device</th>
+                            <th>Android Version</th>
+                            <th>App Version</th>
+                        </tr>
+                    </thead>
+                    <tbody id="installsTableBody">
+                        <!-- Install rows will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Dashboard Script -->
+    <script src="scripts/dashboard.js"></script>
+    <script src="scripts/map.js"></script>
+    <script src="scripts/feedback.js"></script>
+</body>
+
+</html>
