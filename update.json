@@ -4,6 +4,6 @@
     "message": "🔥 Stable Update Fixes\n✅ Analytics & Dashboard Linked\n✅ ANKIT Build Optimized\n✅ Bug Fixes & UI Enhancements\n– Blood Badshah (ANKIT) 💫",
     "update_now_text": "Update Now",
     "later_text": "Later",
-    "show_later_button": true,
-    "update_link": "https://vibemusicak.netlify.app/?download=true"
+    "show_later_button": false,
+    "update_link": "https://vibemusicteam.netlify.app/?download=true"
 }

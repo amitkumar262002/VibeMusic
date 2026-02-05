@@ -22,6 +22,16 @@
     <meta property="og:title" content="Vibe Music | Premium AI Music Experience">
     <meta property="og:description" content="Feel every beat — music with soul. Download Vibe Music today.">
     <meta property="og:image" content="assets/logo.png">
+    <link rel="canonical" href="https://vibemusicteam.netlify.app/">
+    <style>
+        @media (max-width: 768px) {
+            .poster-qr-overlay {
+                bottom: 12%;
+                right: 9%;
+                width: 15%;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -470,9 +480,12 @@
             const scannerQR = document.getElementById('vibeScannerQR');
             const posterQR = document.getElementById('vibePosterQR');
 
-            // Get current URL and add download flag
-            const currentUrl = window.location.protocol + "//" + window.location.host + "/?download=true";
-            const qrSource = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(currentUrl)}&color=ff2d55&bgcolor=050505&margin=10`;
+            // Base URL for the official team site
+            const teamUrl = "https://vibemusicteam.netlify.app/";
+            const currentUrl = teamUrl + "?download=true";
+
+            // Generate high-resolution QR code (1000x1000) for "4K" clarity
+            const qrSource = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(currentUrl)}&color=000000&bgcolor=ffffff&margin=1`;
 
             if (scannerQR) {
                 scannerQR.src = qrSource;
@@ -695,6 +708,7 @@
                 alert("🚫 Security Alert: Negative energy detected.");
                 return;
             }
+
 
             const review = {
                 name,
