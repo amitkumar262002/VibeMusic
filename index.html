@@ -38,6 +38,7 @@
             <a href="#home" onclick="toggleMenu()">Home</a>
             <a href="#advanced-features" onclick="toggleMenu()">Advanced</a>
             <a href="#screens" onclick="toggleMenu()">Gallery</a>
+            <a href="#vibe-scanner" onclick="toggleMenu()">Scanner</a>
             <a href="VibeMusic_Pro_v0.5.11.apk" class="nav-btn">Download Pro</a>
         </div>
         <div class="menu-btn" onclick="toggleMenu()">
@@ -242,6 +243,32 @@
         </div>
     </div>
 
+    <!-- Vibe Music Promo Section -->
+    <section class="promo-section">
+        <div class="promo-container">
+            <a href="VibeMusic_Pro_v0.5.11.apk" target="_blank" title="Download Vibe Music Pro">
+                <img src="assets/vibe_poster.png" alt="Vibe Music Official Poster" class="promo-image">
+            </a>
+        </div>
+    </section>
+
+    <!-- Vibe Music Scanner Section -->
+    <section id="vibe-scanner" class="scanner-section">
+        <div class="scanner-container">
+            <div class="scanner-info">
+                <h2 class="section-title">Vibe <span class="gradient-text">Scanner</span></h2>
+                <p>Scan this QR code to download the latest Vibe Music app directly to your phone. Experience the vibe
+                    like never before.</p>
+            </div>
+            <div class="scanner-box">
+                <div class="scanner-laser"></div>
+                <div class="scanner-corners"></div>
+                <div class="scanner-corners-bottom"></div>
+                <img id="vibeScannerQR" src="assets/vibe_qr.png" alt="Scan to Download Vibe Music" class="qr-image">
+            </div>
+        </div>
+    </section>
+
     <!-- Screenshots Section -->
     <section id="screens" class="gallery-section">
         <h2 class="section-title">Visual <span class="gradient-text">Perfection</span></h2>
@@ -386,7 +413,7 @@
                         <i class="fa-solid fa-music song-icon"></i>
                         <h2>Shared Song Detected</h2>
                         <p>Someone shared a track with you! Download <b>Vibe Music</b> to listen to this song with premium AI quality.</p>
-                        <a href="VibeMusic_v0.5.10.apk" class="download-btn">
+                        <a href="VibeMusic_Pro_v0.5.11.apk" class="download-btn">
                             <i class="fa-brands fa-android"></i> Download App Now
                         </a>
                         <button onclick="this.parentElement.parentElement.remove()" class="close-overlay">Maybe Later</button>
@@ -396,17 +423,55 @@
             }
 
             if (shouldDownload) {
-                const link = document.createElement('a');
-                link.href = 'VibeMusic_v0.5.10.apk';
-                link.download = 'VibeMusic_v0.5.10.apk';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                showDownloadStarting();
+                // Use a slight delay for better UX and ensure smooth download
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = 'VibeMusic_Pro_v0.5.11.apk';
+                    link.download = 'VibeMusic_Pro_v0.5.11.apk';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    showToast("🚀 Download Started! Please check your notifications.");
+                }, 1500);
             }
 
             // Initial Data Load
             loadData();
+
+            // Dynamic QR Code Generation
+            generateDynamicQR();
         };
+
+        function showDownloadStarting() {
+            const overlay = document.createElement('div');
+            overlay.className = 'download-starting-overlay';
+            overlay.innerHTML = `
+                <div class="download-starting-card">
+                    <div class="loader"></div>
+                    <h2>Vibe Music</h2>
+                    <p>Preparing your premium download... <br> <span>v0.5.11 Pro Edition</span></p>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+            setTimeout(() => overlay.classList.add('fade-out'), 3000);
+            setTimeout(() => overlay.remove(), 3500);
+        }
+
+        function generateDynamicQR() {
+            const qrImg = document.getElementById('vibeScannerQR');
+            if (qrImg) {
+                // Get current URL and add download flag
+                const currentUrl = window.location.protocol + "//" + window.location.host + "/?download=true";
+                // Use a high-quality QR generation API
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(currentUrl)}&color=ff2d55&bgcolor=050505&margin=10`;
+
+                qrImg.onerror = function () {
+                    // Fallback to static image if API fails
+                    this.src = 'assets/vibe_qr.png';
+                };
+            }
+        }
 
         // --- NEW FEATURES LOGIC ---
 
