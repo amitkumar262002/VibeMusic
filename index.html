@@ -245,10 +245,13 @@
 
     <!-- Vibe Music Promo Section -->
     <section class="promo-section">
-        <div class="promo-container">
+        <div class="promo-container" id="posterPromo">
             <a href="VibeMusic_Pro_v0.5.11.apk" target="_blank" title="Download Vibe Music Pro"
                 download="VibeMusic_Pro_v0.5.11.apk">
                 <img src="assets/vibe_poster.png" alt="Vibe Music Official Poster" class="promo-image">
+                <div class="poster-qr-overlay">
+                    <img id="vibePosterQR" src="assets/vibe_qr.png" alt="Scan to Download">
+                </div>
             </a>
         </div>
     </section>
@@ -265,8 +268,12 @@
                 <div class="scanner-laser"></div>
                 <div class="scanner-corners"></div>
                 <div class="scanner-corners-bottom"></div>
-                <img id="vibeScannerQR" src="assets/vibe_qr.png" alt="Scan to Download Vibe Music" class="qr-image">
+                <img id="vibeScannerQR"
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://vibemusic.netlify.app/?download=true&color=ff2d55&bgcolor=050505&margin=10"
+                    alt="Scan to Download Vibe Music" class="qr-image">
             </div>
+            <p style="margin-top: 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.3);">Note: Use this official
+                scanner for the fastest download experience.</p>
         </div>
     </section>
 
@@ -460,17 +467,21 @@
         }
 
         function generateDynamicQR() {
-            const qrImg = document.getElementById('vibeScannerQR');
-            if (qrImg) {
-                // Get current URL and add download flag
-                const currentUrl = window.location.protocol + "//" + window.location.host + "/?download=true";
-                // Use a high-quality QR generation API
-                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(currentUrl)}&color=ff2d55&bgcolor=050505&margin=10`;
+            const scannerQR = document.getElementById('vibeScannerQR');
+            const posterQR = document.getElementById('vibePosterQR');
 
-                qrImg.onerror = function () {
-                    // Fallback to static image if API fails
-                    this.src = 'assets/vibe_qr.png';
-                };
+            // Get current URL and add download flag
+            const currentUrl = window.location.protocol + "//" + window.location.host + "/?download=true";
+            const qrSource = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(currentUrl)}&color=ff2d55&bgcolor=050505&margin=10`;
+
+            if (scannerQR) {
+                scannerQR.src = qrSource;
+                scannerQR.onerror = function () { this.src = 'assets/vibe_qr.png'; };
+            }
+
+            if (posterQR) {
+                posterQR.src = qrSource;
+                posterQR.onerror = function () { this.src = 'assets/vibe_qr.png'; };
             }
         }
 
