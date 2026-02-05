@@ -23,15 +23,6 @@
     <meta property="og:description" content="Feel every beat — music with soul. Download Vibe Music today.">
     <meta property="og:image" content="assets/logo.png">
     <link rel="canonical" href="https://vibemusicteam.netlify.app/">
-    <style>
-        @media (max-width: 768px) {
-            .poster-qr-overlay {
-                bottom: 12%;
-                right: 9%;
-                width: 15%;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -279,7 +270,7 @@
                 <div class="scanner-corners"></div>
                 <div class="scanner-corners-bottom"></div>
                 <img id="vibeScannerQR"
-                    src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://vibemusic.netlify.app/?download=true&color=ff2d55&bgcolor=050505&margin=10"
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://vibemusicteam.netlify.app/?download=true&color=000000&bgcolor=ffffff&margin=0"
                     alt="Scan to Download Vibe Music" class="qr-image">
             </div>
             <p style="margin-top: 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.3);">Note: Use this official
@@ -520,7 +511,7 @@
             const currentUrl = teamUrl + "?download=true";
 
             // Generate high-resolution QR code (1000x1000) for "4K" clarity
-            const qrSource = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(currentUrl)}&color=000000&bgcolor=ffffff&margin=1`;
+            const qrSource = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(currentUrl)}&color=000000&bgcolor=ffffff&margin=0`;
 
             if (scannerQR) {
                 scannerQR.src = qrSource;

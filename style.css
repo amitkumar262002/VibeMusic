@@ -631,15 +631,18 @@ body {
 
 .gallery-qr-overlay {
     position: absolute;
-    bottom: 11%;
-    right: 8%;
-    width: 17%;
+    bottom: 4.5%;
+    right: 5%;
+    width: 20%;
     aspect-ratio: 1/1;
     background: #fff;
     padding: 2px;
-    border-radius: 4px;
-    box-shadow: 0 0 15px rgba(255, 45, 85, 0.4);
     z-index: 5;
+    transition: transform 0.3s;
+}
+
+.gallery-qr-overlay:hover {
+    transform: scale(1.15);
 }
 
 .gallery-qr-overlay img {
@@ -1406,26 +1409,27 @@ body {
 
 .poster-qr-overlay {
     position: absolute;
-    bottom: 11.5%;
-    right: 8.5%;
-    width: 14.5%;
+    bottom: 3.5%;
+    right: 4%;
+    width: 22%;
     aspect-ratio: 1/1;
-    background: #050505;
-    border-radius: 12%;
-    padding: 1%;
+    background: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 20px rgba(255, 45, 85, 0.3);
-    border: 1px solid rgba(255, 45, 85, 0.4);
     z-index: 5;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.poster-qr-overlay:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(255, 45, 85, 0.4);
 }
 
 .poster-qr-overlay img {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     object-fit: contain;
-    border-radius: 8%;
 }
 
 /* Vibe Music Scanner Section */
@@ -1446,21 +1450,31 @@ body {
 
 .scanner-box {
     position: relative;
-    width: 280px;
-    height: 280px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 30px;
-    padding: 20px;
-    border: 2px solid rgba(255, 45, 85, 0.3);
+    width: 300px;
+    height: 300px;
+    background: #ffffff;
+    border-radius: 60px;
+    padding: 35px;
+    border: 8px solid #ff2d55;
     overflow: hidden;
-    box-shadow: 0 0 40px rgba(255, 45, 85, 0.1);
+    box-shadow: 0 0 60px rgba(255, 45, 85, 0.6), 0 0 20px rgba(255, 45, 85, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.scanner-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 80px rgba(255, 45, 85, 0.8);
 }
 
 .qr-image {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+    filter: none;
+    mix-blend-mode: multiply;
 }
 
 .scanner-laser {
