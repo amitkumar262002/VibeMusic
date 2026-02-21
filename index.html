@@ -467,12 +467,15 @@
             }
 
             if (shouldDownload) {
-                showDownloadStarting();
+                const flavor = urlParams.get('flavor') || 'pro';
+                const apkFile = flavor.toLowerCase() === 'ankit' ? 'VibeMusic_Ankit_v0.5.12.apk' : 'VibeMusic_Pro_v0.5.12.apk';
+
+                showDownloadStarting(flavor);
                 // Use a slight delay for better UX and ensure smooth download
                 setTimeout(() => {
                     const link = document.createElement('a');
-                    link.href = 'VibeMusic_Pro_v0.5.12.apk';
-                    link.download = 'VibeMusic_Pro_v0.5.12.apk';
+                    link.href = apkFile;
+                    link.download = apkFile;
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
@@ -487,14 +490,15 @@
             generateDynamicQR();
         };
 
-        function showDownloadStarting() {
+        function showDownloadStarting(flavor = 'Pro') {
+            const displayFlavor = flavor.charAt(0).toUpperCase() + flavor.slice(1);
             const overlay = document.createElement('div');
             overlay.className = 'download-starting-overlay';
             overlay.innerHTML = `
                 <div class="download-starting-card">
                     <div class="loader"></div>
                     <h2>Vibe Music</h2>
-                    <p>Preparing your premium download... <br> <span>v0.5.12 Pro Edition</span></p>
+                    <p>Preparing your premium download... <br> <span>v0.5.12 ${displayFlavor} Edition</span></p>
                 </div>
             `;
             document.body.appendChild(overlay);
