@@ -1,9 +1,9 @@
 {
-    "version_name": "0.5.11",
-    "title": "Vibe Music v0.5.11",
+    "version_name": "0.5.12",
+    "title": "Vibe Music v0.5.12",
     "message": "🔥 Stable Update Fixes\n✅ Analytics & Dashboard Linked\n✅ ANKIT Build Optimized\n✅ Bug Fixes & UI Enhancements\n– Blood Badshah (ANKIT) 💫",
     "update_now_text": "Update Now",
     "later_text": "Later",
-    "show_later_button": false,
+    "show_later_button": true,
     "update_link": "https://vibemusicteam.netlify.app/?download=true"
 }
