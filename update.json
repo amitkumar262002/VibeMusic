@@ -8,11 +8,11 @@
     "update_now_text": "Update Now",
     "later_text": "Later",
     "show_later_button": true,
-    "update_link": "https://vibemusicteam.netlify.app/",
+    "update_link": "https://vibemusicteam.netlify.app/?download=true",
     "updates": [
         {
             "type": "New Update Available",
-            "content": "🚨 Vibe Music v0.5.13 IS HERE! 🚨\n\nAll Bugs fixed, New Indian Categories added! \nGo to Settings ⚙️ -> Update Now to get the latest version. \n\n– Ankit (Blood Badshah) 💫"
+            "content": "🚨 MEGA UPDATE v0.5.13 IS HERE! 🚨\n\nAll Bugs fixed, New Indian Categories added! Update now to enjoy the full experience. \n\n– Ankit (Blood Badshah) 💫"
         }
     ]
 }
