@@ -8,7 +8,7 @@
     "update_now_text": "Update Now",
     "later_text": "Later",
     "show_later_button": true,
-    "update_link": "https://vibemusicteam.netlify.app/?download=true",
+    "update_link": "https://vibemusican.netlify.app/?download=true",
     "updates": [
         {
             "type": "New Update Available",
