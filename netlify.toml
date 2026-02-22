@@ -1,7 +1,4 @@
 [build]
   publish = "."
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Redirects removed to allow JSON file access for app updates
