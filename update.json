@@ -1,9 +1,18 @@
 {
     "version_name": "0.5.13",
+    "version": "0.5.13",
+    "latest_version": "0.5.13",
+    "version_code": 29,
     "title": "New Update",
     "message": "All Bugs Fix\n–Blood Badshah 💫\n– Team Vibe Music 🎵",
     "update_now_text": "Update Now",
     "later_text": "Later",
     "show_later_button": true,
-    "update_link": "https://vibemusicteam.netlify.app/"
+    "update_link": "https://vibemusicteam.netlify.app/",
+    "updates": [
+        {
+            "type": "New Update Available",
+            "content": "🚨 Vibe Music v0.5.13 IS HERE! 🚨\n\nAll Bugs fixed, New Indian Categories added! \nGo to Settings ⚙️ -> Update Now to get the latest version. \n\n– Ankit (Blood Badshah) 💫"
+        }
+    ]
 }

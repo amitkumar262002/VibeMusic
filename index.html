@@ -247,8 +247,8 @@
     <!-- Vibe Music Promo Section -->
     <section class="promo-section">
         <div class="promo-container" id="posterPromo">
-            <a href="VibeMusic_Pro_v0.5.12.apk" target="_blank" title="Download Vibe Music Pro"
-                download="VibeMusic_Pro_v0.5.12.apk">
+            <a href="VibeMusic_Pro_v0.5.13.apk" target="_blank" title="Download Vibe Music Pro"
+                download="VibeMusic_Pro_v0.5.13.apk">
                 <img src="assets/vibe_poster.png" alt="Vibe Music Official Poster" class="promo-image">
                 <div class="poster-qr-overlay">
                     <img id="vibePosterQR" src="assets/vibe_qr.png" alt="Scan to Download">
@@ -391,7 +391,7 @@
             <div class="footer-brand">
                 <img src="assets/logo.png" alt="Logo" class="footer-logo">
                 <h3>Vibe Music</h3>
-                <div class="version-badge">Advanced Edition v0.5.12</div>
+                <div class="version-badge">Advanced Edition v0.5.13</div>
             </div>
 
             <div class="footer-divider"></div>
@@ -457,7 +457,7 @@
                         <i class="fa-solid fa-music song-icon"></i>
                         <h2>Shared Song Detected</h2>
                         <p>Someone shared a track with you! Download <b>Vibe Music</b> to listen to this song with premium AI quality.</p>
-                        <a href="VibeMusic_Pro_v0.5.12.apk" class="download-btn" download="VibeMusic_Pro_v0.5.12.apk">
+                        <a href="VibeMusic_Pro_v0.5.13.apk" class="download-btn" download="VibeMusic_Pro_v0.5.13.apk">
                             <i class="fa-brands fa-android"></i> Download App Now
                         </a>
                         <button onclick="this.parentElement.parentElement.remove()" class="close-overlay">Maybe Later</button>
@@ -468,7 +468,7 @@
 
             if (shouldDownload) {
                 const flavor = urlParams.get('flavor') || 'pro';
-                const apkFile = flavor.toLowerCase() === 'ankit' ? 'VibeMusic_Ankit_v0.5.12.apk' : 'VibeMusic_Pro_v0.5.12.apk';
+                const apkFile = flavor.toLowerCase() === 'ankit' ? 'VibeMusic_Ankit_v0.5.13.apk' : 'VibeMusic_Pro_v0.5.13.apk';
 
                 showDownloadStarting(flavor);
                 // Use a slight delay for better UX and ensure smooth download
@@ -498,7 +498,7 @@
                 <div class="download-starting-card">
                     <div class="loader"></div>
                     <h2>Vibe Music</h2>
-                    <p>Preparing your premium download... <br> <span>v0.5.12 ${displayFlavor} Edition</span></p>
+                    <p>Preparing your premium download... <br> <span>v0.5.13 ${displayFlavor} Edition</span></p>
                 </div>
             `;
             document.body.appendChild(overlay);
