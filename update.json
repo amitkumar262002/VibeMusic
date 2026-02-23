@@ -1,18 +1,18 @@
 {
-    "version_name": "0.5.13",
-    "version": "0.5.13",
-    "latest_version": "0.5.13",
-    "version_code": 29,
-    "title": "New Update",
-    "message": "All Bugs Fix\n–Blood Badshah 💫\n– Team Vibe Music 🎵",
-    "update_now_text": "Update Now",
+    "version_name": "0.5.15",
+    "version": "0.5.15",
+    "latest_version": "0.5.15",
+    "version_code": 31,
+    "title": "Fresh Vibe Update v0.5.15",
+    "message": "🔥 Clean Home Screen Implemented\n✅ Smart Update Suppression Added\n🌅 Advanced 3-Hour Vibe Greetings\n⚡ All Bugs Fixed for Smoother Experience\n\n– Ankit (Blood Badshah) 💫",
+    "update_now_text": "Upgrade Now",
     "later_text": "Later",
     "show_later_button": true,
     "update_link": "https://vibemusican.netlify.app/?download=true",
     "updates": [
         {
             "type": "New Update Available",
-            "content": "🚨 MEGA UPDATE v0.5.13 IS HERE! 🚨\n\nAll Bugs fixed, New Indian Categories added! Update now to enjoy the full experience. \n\n– Ankit (Blood Badshah) 💫"
+            "content": "🚀 MEGA UPDATE v0.5.15 IS HERE! 🚀\n\nExperience the clean UI & smart new features. Update now to enjoy the full vibe. \n\n– Ankit (Blood Badshah) 💫"
         }
     ]
 }

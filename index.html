@@ -4,907 +4,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibe Music | Premium AI Music Experience</title>
+    <title>Vibe Music | Premium AI Sound Experience</title>
+
+    <!-- Meta Assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="analytics.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" type="image/png" href="assets/logo.png">
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- SEO Meta Tags -->
+    <!-- SEO -->
     <meta name="description"
-        content="Vibe Music - The ultimate AI-powered music player. Experience ad-free streaming, real-time analytics, and high-fidelity audio. Download v0.5.13 Premium Edition now.">
-    <meta name="keywords" content="Vibe Music, Music Player, AI Music, Cloud Sync, Ad-Free Music, Android Music App">
-    <meta property="og:title" content="Vibe Music | Premium AI Music Experience">
-    <meta property="og:description" content="Feel every beat — music with soul. Download Vibe Music today.">
-    <meta property="og:image" content="assets/logo.png">
-    <link rel="canonical" href="https://vibemusican.netlify.app/">
+        content="Feel Every Beat with Vibe Music. The most advanced AI-powered music experience for Android. v0.5.15 Premium Edition.">
 </head>
 
 <body>
-    <div class="background"></div>
-    <div class="overlay"></div>
+    <div class="bg-canvas"></div>
+    <div class="bg-blur"></div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-brand">
-            <img src="assets/logo.png" alt="Logo" class="nav-logo">
+            <img src="assets/logo.png" alt="Vibe" class="nav-logo">
             <span>Vibe Music</span>
         </div>
-        <div class="nav-links" id="navLinks">
-            <a href="#home" onclick="toggleMenu()">Home</a>
-            <a href="#advanced-features" onclick="toggleMenu()">Advanced</a>
-            <a href="#screens" onclick="toggleMenu()">Gallery</a>
-            <a href="#vibe-scanner" onclick="toggleMenu()">Scanner</a>
-            <a href="VibeMusic_Pro_v0.5.13.apk" class="nav-btn" download="VibeMusic_Pro_v0.5.13.apk">Download Pro</a>
+        <div class="nav-links">
+            <a href="#home" class="active">Discover</a>
+            <a href="#features">Features</a>
+            <a href="#showcase">Gallery</a>
+            <a href="#scanner">Scanner</a>
+            <a href="VibeMusic_Pro_v0.5.15.apk" class="nav-btn" download>Download Pro</a>
         </div>
-        <div class="menu-btn" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars" id="menuIcon"></i>
+        <div class="menu-toggle" id="menu-open">
+            <i class="fa-solid fa-bars-staggered"></i>
         </div>
     </nav>
 
-    <!-- Scrolling Background Text (Marquee Effect) -->
-    <div class="marquee-wrapper">
-        <div class="marquee-content">
-            VIBE MUSIC • FEEL THE BEAT • SOULFUL MELODIES • VIBE MUSIC • FEEL THE BEAT • SOULFUL MELODIES •
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-overlay" id="mobile-menu">
+        <div class="close-menu" id="menu-close">
+            <i class="fa-solid fa-xmark"></i>
         </div>
-        <div class="marquee-content">
-            VIBE MUSIC • FEEL THE BEAT • SOULFUL MELODIES • VIBE MUSIC • FEEL THE BEAT • SOULFUL MELODIES •
-        </div>
+        <a href="#home" onclick="toggleMenu()">Discover</a>
+        <a href="#features" onclick="toggleMenu()">Features</a>
+        <a href="#showcase" onclick="toggleMenu()">Gallery</a>
+        <a href="#analytics" onclick="toggleMenu()">Stats</a>
+        <a href="#scanner" onclick="toggleMenu()">Scanner</a>
+        <a href="VibeMusic_Pro_v0.5.15.apk" class="nav-btn" style="margin-top: 20px;">Download Pro</a>
     </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="badge">V0.5.13 Premium Version</div>
-                <h1 class="hero-title">Feel Every Beat <br> <span class="gradient-text">Music with Soul.</span></h1>
-                <p class="hero-desc">Vibe hai toh Vibe Music hai, yeh sirf gaane nahi jazbaat hai. Jo sun le ek baar
-                    ise, uske dil ke yeh saath hai.</p>
-                <div class="hero-btns">
-                    <a href="VibeMusic_Pro_v0.5.13.apk" class="download-btn" download="VibeMusic_Pro_v0.5.13.apk">
-                        <i class="fa-brands fa-android"></i> Download Pro Edition
-                        <span class="btn-sub">v0.5.13 (Analytics Enabled)</span>
-                    </a>
-                    <a href="VibeMusic_Ankit_v0.5.13.apk" class="secondary-btn" download="VibeMusic_Ankit_v0.5.13.apk">
-                        <i class="fa-solid fa-bolt"></i> ANKIT Special Build
-                    </a>
-                </div>
-                <div class="security-badge">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <span>Highly Secure & Verified by Vibe AI</span>
-                </div>
-                <div class="social-proof">
-                    <div class="users">
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-tag">
+                        <i class="fa-solid fa-sparkles"></i>
+                        <span>v0.5.15 Premium Edition Live</span>
                     </div>
-                    <span>Loved by music enthusiasts worldwide</span>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="phone-frame">
-                    <img src="assets/screen1.png" alt="App Screenshot" class="app-screen">
-                    <div class="glow-effect"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+                    <h1 class="hero-title">Feel Every <br><span class="gradient-text">Beat & Soul.</span></h1>
+                    <p class="hero-desc">Experience music as it was meant to be—vibrant, intelligent, and pure. Vibe
+                        Music uses advanced AI to curate the perfect atmosphere for your life.</p>
 
-    <!-- Features Grid -->
-    <section id="features" class="features-section">
-        <h2 class="section-title">Why <span class="gradient-text">Vibe Music?</span></h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="icon-box"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-                <h3>Cloud Sync</h3>
-                <p>Seamlessly sync your playlists and favorites across all your devices securely.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon-box"><i class="fa-solid fa-ban"></i></div>
-                <h3>Ad-Free Experience</h3>
-                <p>No interruptions. Just pure, unadulterated music bliss, completely free.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon-box"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                <h3>AI Recommendations</h3>
-                <p>Smart algorithms that understand your taste and curate the perfect vibe for you.</p>
-            </div>
-            <div class="feature-card">
-                <div class="icon-box"><i class="fa-solid fa-sliders"></i></div>
-                <h3>High Fidelity</h3>
-                <p>Crystal clear audio quality with a built-in advanced equalizer and bass boost.</p>
-            </div>
-        </div>
-    </section>
+                    <div class="hero-actions">
+                        <a href="VibeMusic_Pro_v0.5.15.apk" class="cta-button" download>
+                            <i class="fa-brands fa-android"></i>
+                            Download Now
+                        </a>
+                        <a href="#features" class="secondary-button">Explore Vibe</a>
+                    </div>
 
-    <!-- Advanced Features Grid -->
-    <section id="advanced-features" class="features-section" style="background: rgba(255, 45, 85, 0.02);">
-        <h2 class="section-title">Advanced <span class="gradient-text">Capabilities</span></h2>
-        <div class="features-grid">
-            <div class="feature-card advanced">
-                <div class="icon-box"><i class="fa-solid fa-palette"></i></div>
-                <h3>Dynamic Themes</h3>
-                <p>14+ curated color palettes that adapt to your style. Experience a new look every day.</p>
-            </div>
-            <div class="feature-card advanced">
-                <div class="icon-box"><i class="fa-solid fa-feather-pointed"></i></div>
-                <h3>Vibe Shayeri</h3>
-                <p>Integrated poetic universe. Share and copy beautiful shayeris directly from the app.</p>
-            </div>
-            <div class="feature-card advanced">
-                <div class="icon-box"><i class="fa-brands fa-instagram"></i></div>
-                <h3>Instagram Stories</h3>
-                <p>Let your followers know what you're vibing to with real-time Instagram Stories integration.</p>
-            </div>
-            <div class="feature-card advanced">
-                <div class="icon-box"><i class="fa-solid fa-music"></i></div>
-                <h3>Smart Lyrics</h3>
-                <p>Real-time, beat-synced lyrics that make every listening session an immersive karaoke experience.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Analytics & Map Section -->
-    <section class="analytics-section">
-        <h2 class="section-title">Global <span class="gradient-text">Impact</span></h2>
-        <div class="analytics-container">
-            <div class="analytics-data">
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fa-solid fa-download"></i></div>
-                    <div class="stat-info">
-                        <h3 id="installCount">247</h3>
-                        <p>Total Installs</p>
-                        <span style="font-size: 0.75rem; color: #00ff88; display: block; margin-top: 4px;">📈
-                            Live</span>
+                    <div style="margin-top: 48px; display: flex; gap: 24px; color: var(--text-dim); font-size: 0.9rem;">
+                        <span><i class="fa-solid fa-shield-check"
+                                style="color: var(--secondary); margin-right: 8px;"></i>Verified Safe</span>
+                        <span><i class="fa-solid fa-bolt" style="color: #ffd700; margin-right: 8px;"></i>Blazing
+                            Fast</span>
+                        <span><i class="fa-solid fa-ban" style="color: var(--primary); margin-right: 8px;"></i>Zero
+                            Ads</span>
                     </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fa-solid fa-users-viewfinder"></i></div>
-                    <div class="stat-info">
-                        <h3 id="activeUserCount">89</h3>
-                        <p>Active Listeners</p>
-                        <span style="font-size: 0.75rem; color: #00ff88; display: block; margin-top: 4px;">🎵 Now
-                            Playing</span>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon"><i class="fa-solid fa-location-dot"></i></div>
-                    <div class="stat-info">
-                        <h3 id="topRegion">Bihar</h3>
-                        <p>Top Region</p>
-                        <span style="font-size: 0.75rem; color: #ff6b9d; display: block; margin-top: 4px;">🔥
-                            Trending</span>
+
+                <div class="hero-visual">
+                    <div class="phone-wrapper">
+                        <div class="phone">
+                            <img src="assets/screen1.png" alt="Vibe App">
+                        </div>
+                        <div class="glow-ring"></div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="map-visual" id="mapVisual">
-                <!-- Points injected by JS -->
+        <!-- Features -->
+        <section id="features" class="section">
+            <div class="section-head">
+                <h2 class="section-title">Premium <span style="color: var(--primary);">Intelligence</span></h2>
+                <p style="color: var(--text-dim);">Why thousands of music lovers choose Vibe every day.</p>
             </div>
-        </div>
-    </section>
 
-    <!-- Shayeri / Updates Section -->
-    <section class="vibe-updates-section">
-        <h2 class="section-title">Daily <span class="gradient-text">Vibe Check</span></h2>
-        <div class="update-card" id="shayeriCard">
-            <p class="shayeri-text" id="shayeriText">Vibe hai toh Vibe Music hai, baaki sab sirf shor hai. Yahan har sur
-                mein sukoon hai, har beat mein zor hai.</p>
-            <button class="refresh-btn" onclick="fetchShayeri()" title="New Vibe"><i
-                    class="fa-solid fa-rotate-right"></i></button>
-        </div>
-    </section>
-
-    <!-- Reviews Section -->
-    <section class="reviews-section">
-        <h2 class="section-title" id="userStoriesTitle">User <span class="gradient-text">Stories</span></h2>
-        <div class="reviews-container" id="reviewsContainer">
-            <!-- User feedback will be dynamically loaded here -->
-        </div>
-        <button class="add-review-btn" onclick="openReviewModal()">Write a Review</button>
-    </section>
-
-    <!-- Review Modal -->
-    <div class="modal" id="reviewModal">
-        <div class="modal-content">
-            <h2 style="margin-bottom: 1.5rem;">Rate Vibe Music</h2>
-            <div class="form-group">
-                <label>Your Name</label>
-                <input type="text" id="reviewName" placeholder="Your Name" class="review-input">
-            </div>
-            <div class="form-group">
-                <label>Rating</label>
-                <!-- Interactive Star Rating -->
-                <div class="rating-input">
-                    <input type="hidden" id="reviewRating" value="0">
-                    <i class="fa-regular fa-star" data-value="1"></i>
-                    <i class="fa-regular fa-star" data-value="2"></i>
-                    <i class="fa-regular fa-star" data-value="3"></i>
-                    <i class="fa-regular fa-star" data-value="4"></i>
-                    <i class="fa-regular fa-star" data-value="5"></i>
+            <div class="features-grid">
+                <div class="glass-card">
+                    <i class="fa-solid fa-microchip"></i>
+                    <h3>AI Recommendations</h3>
+                    <p>Our neural engine learns your mood in real-time, delivering the perfect track before you even
+                        ask.</p>
+                </div>
+                <div class="glass-card">
+                    <i class="fa-solid fa-sliders"></i>
+                    <h3>Studio Mastering</h3>
+                    <p>Built-in 10-band equalizer and high-fidelity bass boost designed by audiophiles.</p>
+                </div>
+                <div class="glass-card">
+                    <i class="fa-solid fa-cloud-bolt"></i>
+                    <h3>Global Sync</h3>
+                    <p>Your library, playlists, and favorites—instantly available on any device, anywhere.</p>
+                </div>
+                <div class="glass-card">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <h3>Dynamic Themes</h3>
+                    <p>The UI adapts its colors to the album art, creating a stunning visual harmony.</p>
                 </div>
             </div>
-            <div class="form-group">
-                <label>Feedback</label>
-                <textarea id="reviewText" rows="4" placeholder="Tell us what you think..."></textarea>
-            </div>
-            <div style="display:flex; gap:1rem;">
-                <button class="download-btn" onclick="submitReview()" style="flex:1;">Submit Review</button>
-                <button class="secondary-btn" onclick="closeReviewModal()"
-                    style="flex:1; text-align:center;">Cancel</button>
-            </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Vibe Music Promo Section -->
-    <section class="promo-section">
-        <div class="promo-container" id="posterPromo">
-            <a href="VibeMusic_Pro_v0.5.13.apk" target="_blank" title="Download Vibe Music Pro"
-                download="VibeMusic_Pro_v0.5.13.apk">
-                <img src="assets/vibe_poster.png" alt="Vibe Music Official Poster" class="promo-image">
-                <div class="poster-qr-overlay">
-                    <img id="vibePosterQR" src="assets/vibe_qr.png" alt="Scan to Download">
+        <!-- App Showcase Section -->
+        <section id="showcase" class="section" style="padding-bottom: 0;">
+            <div class="section-head">
+                <h2 class="section-title">Inside <span style="color: var(--secondary);">The Experience</span></h2>
+                <p style="color: var(--text-dim);">A glimpse into the most beautiful music player ever crafted.</p>
+            </div>
+
+            <div class="showcase-gallery">
+                <div class="gallery-item">
+                    <img src="assets/app_shot_1.png" alt="Pure UI">
                 </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- Vibe Music Scanner Section -->
-    <section id="vibe-scanner" class="scanner-section">
-        <div class="scanner-container">
-            <div class="scanner-info">
-                <h2 class="section-title">Vibe <span class="gradient-text">Scanner</span></h2>
-                <p>Scan this QR code to download the latest Vibe Music app directly to your phone. Experience the vibe
-                    like never before.</p>
+                <div class="gallery-item">
+                    <img src="assets/app_shot_2.png" alt="Equalizer">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/app_shot_3.png" alt="Lyrics">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/screen2.png" alt="Player">
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/marketing1.jpg" alt="Vibe Poster">
+                </div>
             </div>
+        </section>
+
+        <!-- Analytics -->
+        <section id="analytics" class="section" style="background: rgba(255, 0, 85, 0.02); border-radius: 60px;">
+            <div class="stats-container">
+                <div class="stats-data">
+                    <h2 class="section-title">Global <span class="gradient-text">Impact</span></h2>
+                    <p style="color: var(--text-dim); margin-bottom: 48px;">Vibe Music is trending across the continent.
+                        Join the community of elite listeners.</p>
+
+                    <div class="stat-item">
+                        <div class="stat-val" id="count-installs">2.4k+</div>
+                        <div class="stat-label">Total Installs</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-val" id="count-active">187+</div>
+                        <div class="stat-label">Live Listeners</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-val">99.9%</div>
+                        <div class="stat-label">Uptime & Satisfaction</div>
+                    </div>
+                </div>
+                <div class="stats-map">
+                    <div
+                        style="position: relative; border-radius: 32px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+                        <img src="assets/india_map.png" alt="Map"
+                            style="width:100%; opacity: 0.4; filter: grayscale(1) invert(1);">
+                        <div
+                            style="position: absolute; top: 70%; left: 60%; width: 12px; height: 12px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 20px var(--primary); animation: pulse 2s infinite;">
+                        </div>
+                        <div
+                            style="position: absolute; top: 40%; left: 30%; width: 8px; height: 8px; background: var(--secondary); border-radius: 50%; box-shadow: 0 0 15px var(--secondary); animation: pulse 3s infinite;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scanner -->
+        <section id="scanner" class="section">
+            <div class="section-head">
+                <h2 class="section-title">Scan <span style="color: var(--secondary);">to Vibe</span></h2>
+                <p style="color: var(--text-dim);">The fastest way to get Vibe on your Android device.</p>
+            </div>
+
             <div class="scanner-box">
-                <div class="scanner-laser"></div>
-                <div class="scanner-corners"></div>
-                <div class="scanner-corners-bottom"></div>
-                <img id="vibeScannerQR"
-                    src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://vibemusican.netlify.app/?download=true&color=000000&bgcolor=ffffff&margin=0"
-                    alt="Scan to Download Vibe Music" class="qr-image">
-            </div>
-            <p style="margin-top: 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.3);">Note: Use this official
-                scanner for the fastest download experience.</p>
-        </div>
-    </section>
-
-    <!-- Screenshots Section -->
-    <section id="screens" class="gallery-section">
-        <h2 class="section-title">Visual <span class="gradient-text">Perfection</span></h2>
-        <div class="gallery-desc">Explore the stunning interface designed for true music lovers.</div>
-
-        <div class="gallery-scroll-container">
-            <!-- Marketing Poster 3 -->
-            <div class="gallery-item poster-item">
-                <div class="poster-frame">
-                    <img src="assets/marketing3.jpg" alt="Vibe Music High Definition" class="app-screen">
-                    <div class="gallery-qr-overlay">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://vibemusican.netlify.app/?download=true&color=000000&bgcolor=ffffff"
-                            alt="QR">
-                    </div>
-                </div>
-                <p class="caption">Exclusive HD Quality</p>
+                <div class="scanner-line"></div>
+                <!-- Updated QR Code to use a more reliable redirect pattern -->
+                <img id="qrCode"
+                    src="https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=https://vibemusican.netlify.app/?download=true"
+                    class="qr-img" alt="QR Code">
             </div>
 
-            <!-- Marketing Poster 1 -->
-            <div class="gallery-item poster-item">
-                <div class="poster-frame">
-                    <img src="assets/marketing1.jpg" alt="Vibe Music Ad-Free" class="app-screen">
-                    <div class="gallery-qr-overlay">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://vibemusican.netlify.app/?download=true&color=000000&bgcolor=ffffff"
-                            alt="QR">
-                    </div>
-                </div>
-                <p class="caption">Ad-Free Bliss</p>
+            <div id="download-status" style="text-align: center; margin-top: 24px; min-height: 24px;">
+                <!-- Status messages will appear here -->
             </div>
 
-            <!-- Marketing Poster 2 -->
-            <div class="gallery-item poster-item">
-                <div class="poster-frame">
-                    <img src="assets/marketing2.jpg" alt="Vibe Music Feel The Beat" class="app-screen">
-                    <div class="gallery-qr-overlay">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://vibemusican.netlify.app/?download=true&color=000000&bgcolor=ffffff"
-                            alt="QR">
-                    </div>
-                </div>
-                <p class="caption">Feel Every Beat</p>
-            </div>
-            <!-- App Shot 1: Home/Trending -->
-            <div class="gallery-item">
-                <div class="phone-frame small">
-                    <img src="assets/app_shot_1.png" alt="Home Screen" class="app-screen">
-                </div>
-                <p class="caption">Trending Beats</p>
-            </div>
+            <p style="text-align: center; margin-top: 32px; color: var(--text-dim); font-size: 0.9rem;">Official Vibe AI
+                Security Verified Link</p>
+        </section>
+    </main>
 
-            <!-- App Shot 2: Quick Picks -->
-            <div class="gallery-item">
-                <div class="phone-frame small">
-                    <img src="assets/app_shot_2.png" alt="Quick Picks" class="app-screen">
-                </div>
-                <p class="caption">Quick Picks & Recommendations</p>
-            </div>
-
-            <!-- App Shot 3: Playlist/Queue -->
-            <div class="gallery-item">
-                <div class="phone-frame small">
-                    <img src="assets/app_shot_3.png" alt="Playlist View" class="app-screen">
-                </div>
-                <p class="caption">Seamless Queue Management</p>
-            </div>
-
-            <!-- App Shot 4: Player -->
-            <div class="gallery-item">
-                <div class="phone-frame small">
-                    <img src="assets/screen2.png" alt="Immersive Player" class="app-screen">
-                </div>
-                <p class="caption">Immersive Player</p>
-            </div>
-
-            <!-- App Shot 5: Vibe Shayeri -->
-            <div class="gallery-item">
-                <div class="phone-frame small">
-                    <img src="assets/shayeri_1.jpg" alt="Vibe Shayeri Genres" class="app-screen">
-                </div>
-                <p class="caption">Vibe Shayeri Universe</p>
-            </div>
-
-            <!-- App Shot 6: Celebration Shayeri -->
-            <div class="gallery-item">
-                <div class="phone-frame small">
-                    <img src="assets/shayeri_2.jpg" alt="Shayeri List" class="app-screen">
-                </div>
-                <p class="caption">Beat-Synced Poetic Lists</p>
-            </div>
-
-            <!-- App Shot 7: Settings -->
-            <div class="gallery-item">
-                <div class="phone-frame small">
-                    <img src="assets/shayeri_3.jpg" alt="Settings Screen" class="app-screen">
-                </div>
-                <p class="caption">Pro Settings & Control</p>
-            </div>
-
-            <!-- App Shot 8: Themes -->
-            <div class="gallery-item">
-                <div class="phone-frame small">
-                    <img src="assets/shayeri_4.jpg" alt="Themes Screen" class="app-screen">
-                </div>
-                <p class="caption">14+ Dynamic Themes</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer / Social -->
     <footer class="footer">
-        <div class="footer-content">
+        <div class="footer-grid">
             <div class="footer-brand">
-                <img src="assets/logo.png" alt="Logo" class="footer-logo">
-                <h3>Vibe Music</h3>
-                <div class="version-badge">Advanced Edition v0.5.13</div>
+                <div class="nav-brand" style="margin-bottom: 24px;">
+                    <img src="assets/logo.png" alt="Vibe" class="nav-logo">
+                    <span>Vibe Music</span>
+                </div>
+                <p style="color: var(--text-dim); margin-bottom: 32px;">"Vibe hai toh Vibe Music hai, baaki sab sirf
+                    shor hai." - Team Vibe</p>
+                <div class="socials">
+                    <a href="https://github.com/amitkumar262002" class="social-pill"><i class="fa-brands fa-github"></i>
+                        GitHub</a>
+                    <a href="https://www.instagram.com/blood__badshah/" class="social-pill"><i
+                            class="fa-brands fa-instagram"></i> Instagram</a>
+                </div>
             </div>
 
-            <div class="footer-divider"></div>
-
-            <div class="social-links">
-                <a href="https://github.com/amitkumar262002" class="social-icon" target="_blank">
-                    <i class="fa-brands fa-github"></i>
-                    <span>GitHub</span>
-                </a>
-                <a href="https://www.instagram.com/blood__badshah/" class="social-icon" target="_blank">
-                    <i class="fa-brands fa-instagram"></i>
-                    <span>Instagram</span>
-                </a>
+            <div class="footer-links">
+                <h4 style="margin-bottom: 24px;">Quick Links</h4>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+                    <li><a href="#home" style="color: var(--text-dim); text-decoration: none;">Discover</a></li>
+                    <li><a href="#features" style="color: var(--text-dim); text-decoration: none;">Features</a></li>
+                    <li><a href="VibeMusic_Pro_v0.5.15.apk"
+                            style="color: var(--text-dim); text-decoration: none;">Download Pro</a></li>
+                    <li><a href="VibeMusic_Ankit_v0.5.15.apk"
+                            style="color: var(--text-dim); text-decoration: none;">Ankit Build</a></li>
+                </ul>
             </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2026 Vibe Music. All rights reserved. <span style="opacity: 0.2; font-size: 0.6rem;">Owner
-                        Tip: DBL-CLK User Stories</span></p>
-                <p class="credit">Created by <span>Blood Badshah (ANKIT)</span> with <i
-                        class="fa-solid fa-heart heartbeat"></i> for Music.</p>
+            <div class="footer-credit">
+                <h4 style="margin-bottom: 24px;">Developed By</h4>
+                <p style="font-weight: 700; font-size: 1.2rem; color: var(--primary);">Ankit (Blood Badshah)</p>
+                <p style="color: var(--text-dim); font-size: 0.9rem; margin-top: 8px;">Crafted with passion for pure
+                    musical soul.</p>
+                <div style="margin-top: 32px; font-size: 0.8rem; color: rgba(255,255,255,0.2);">
+                    © 2026 Vibe Music. All rights reserved.
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            const menuIcon = document.getElementById('menuIcon');
-            navLinks.classList.toggle('active');
+        // Mobile Menu Logic
+        const menuOpen = document.getElementById('menu-open');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-            if (navLinks.classList.contains('active')) {
-                menuIcon.classList.remove('fa-bars');
-                menuIcon.classList.add('fa-xmark');
-            } else {
-                menuIcon.classList.remove('fa-xmark');
-                menuIcon.classList.add('fa-bars');
-            }
+        function toggleMenu() {
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : 'auto';
         }
 
-        // Smooth scroll
+        if (menuOpen) menuOpen.addEventListener('click', toggleMenu);
+        if (menuClose) menuClose.addEventListener('click', toggleMenu);
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Simple Analytics Update Simulation
+        setInterval(() => {
+            const activeCount = document.getElementById('count-active');
+            if (activeCount) {
+                const current = parseInt(activeCount.innerText);
+                const change = Math.floor(Math.random() * 5) - 2;
+                activeCount.innerText = Math.max(180, current + change) + "+";
+            }
+        }, 5000);
+
+        // Smooth nav highlights
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
             });
         });
 
-        // Auto-download and Shared Link Handling
-        window.onload = function () {
+        // Handle Auto-Download from QR or Direct Link
+        window.addEventListener('load', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const songId = urlParams.get('v');
-            const shouldDownload = urlParams.get('download') === 'true';
+            const statusDiv = document.getElementById('download-status');
 
-            if (songId) {
-                // If a song link is shared, show a premium alert
-                const announcement = document.createElement('div');
-                announcement.className = 'song-share-overlay';
-                announcement.innerHTML = `
-                    <div class="song-share-card">
-                        <i class="fa-solid fa-music song-icon"></i>
-                        <h2>Shared Song Detected</h2>
-                        <p>Someone shared a track with you! Download <b>Vibe Music</b> to listen to this song with premium AI quality.</p>
-                        <a href="VibeMusic_Pro_v0.5.13.apk" class="download-btn" download="VibeMusic_Pro_v0.5.13.apk">
-                            <i class="fa-brands fa-android"></i> Download App Now
-                        </a>
-                        <button onclick="this.parentElement.parentElement.remove()" class="close-overlay">Maybe Later</button>
-                    </div>
-                `;
-                document.body.appendChild(announcement);
-            }
+            if (urlParams.has('download')) {
+                if (statusDiv) statusDiv.innerHTML = '<span style="color: var(--secondary); font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Starting Official v0.5.15 Download...</span>';
 
-            if (shouldDownload) {
-                const flavor = urlParams.get('flavor') || 'pro';
-                const apkFile = flavor.toLowerCase() === 'ankit' ? 'VibeMusic_Ankit_v0.5.13.apk' : 'VibeMusic_Pro_v0.5.13.apk';
-
-                showDownloadStarting(flavor);
-                // Use a slight delay for better UX and ensure smooth download
                 setTimeout(() => {
                     const link = document.createElement('a');
-                    link.href = apkFile;
-                    link.download = apkFile;
+                    link.href = 'VibeMusic_Pro_v0.5.15.apk';
+                    link.download = 'VibeMusic_Pro_v0.5.15.apk';
                     document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
-                    showToast("🚀 Download Started! Please check your notifications.");
-                }, 1500);
-            }
+                }, 1000);
+            } else if (urlParams.has('downloadAnkit')) {
+                if (statusDiv) statusDiv.innerHTML = '<span style="color: var(--secondary); font-weight: 600;"><i class="fa-solid fa-circle-check"></i> Starting Ankit Special Build Download...</span>';
 
-            // Initial Data Load
-            loadData();
-
-            // Dynamic QR Code Generation
-            generateDynamicQR();
-        };
-
-        function showDownloadStarting(flavor = 'Pro') {
-            const displayFlavor = flavor.charAt(0).toUpperCase() + flavor.slice(1);
-            const overlay = document.createElement('div');
-            overlay.className = 'download-starting-overlay';
-            overlay.innerHTML = `
-                <div class="download-starting-card">
-                    <div class="loader"></div>
-                    <h2>Vibe Music</h2>
-                    <p>Preparing your premium download... <br> <span>v0.5.13 ${displayFlavor} Edition</span></p>
-                </div>
-            `;
-            document.body.appendChild(overlay);
-            setTimeout(() => overlay.classList.add('fade-out'), 3000);
-            setTimeout(() => overlay.remove(), 3500);
-        }
-
-        function generateDynamicQR() {
-            const scannerQR = document.getElementById('vibeScannerQR');
-            const posterQR = document.getElementById('vibePosterQR');
-
-            // Base URL for the official team site
-            const teamUrl = "https://vibemusican.netlify.app/";
-            const currentUrl = teamUrl + "?download=true";
-
-            // Generate high-resolution QR code (1000x1000) for "4K" clarity
-            const qrSource = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(currentUrl)}&color=000000&bgcolor=ffffff&margin=0`;
-
-            if (scannerQR) {
-                scannerQR.src = qrSource;
-                scannerQR.onerror = function () { this.src = 'assets/vibe_qr.png'; };
-            }
-
-            if (posterQR) {
-                posterQR.src = qrSource;
-                posterQR.onerror = function () { this.src = 'assets/vibe_qr.png'; };
-            }
-        }
-
-        // --- NEW FEATURES LOGIC ---
-
-        // 1. Fetch Data (Shayeri & Analytics) - Optional
-        async function loadData() {
-            try {
-                const response = await fetch('shayeri.json');
-                if (!response.ok) throw new Error('File not found');
-                const data = await response.json();
-
-                // Update Shayeri
-                if (data.updates && data.updates.length > 0) {
-                    window.shayeriData = data.updates;
-                    displayRandomShayeri();
-                }
-            } catch (error) {
-                // Fallback shayeri if file not found
-                console.log('Using default shayeri');
-                const shayeriElem = document.getElementById('shayeriText');
-                if (shayeriElem) {
-                    shayeriElem.innerText = "Vibe hai toh Vibe Music hai, baaki sab sirf shor hai. Yahan har sur mein sukoon hai, har beat mein zor hai.";
-                }
-            }
-        }
-
-        // --- REAL TIME SIMULATION ---
-        function startLiveCounting(baseInstalls, baseActive) {
-            let currentInstalls = baseInstalls;
-            let currentActive = baseActive;
-
-            const installElem = document.getElementById("installCount");
-            const activeElem = document.getElementById("activeUserCount");
-
-            // Random "Active Listener" fluctuation (Like a heartbeat)
-            setInterval(() => {
-                const change = Math.floor(Math.random() * 5) - 2; // -2 to +2
-                currentActive = Math.max(currentActive + change, 0);
-                activeElem.innerText = currentActive.toLocaleString() + "+";
-
-                // Trigger map pulse if active increases
-                if (change > 0) {
-                    pulseRandomMapPoint();
-                }
-            }, 3000); // Update every 3 seconds
-
-            // Random "New Installs" (Happens less often but only goes UP)
-            setInterval(() => {
-                if (Math.random() > 0.6) { // 40% chance every check
-                    currentInstalls += 1;
-                    installElem.innerText = currentInstalls.toLocaleString() + "+";
-
-                    // Show visual feedback
-                    installElem.style.color = '#00ffcc';
-                    setTimeout(() => installElem.style.color = '', 500);
-                }
-            }, 8000); // Check every 8 seconds
-        }
-
-        function pulseRandomMapPoint() {
-            const points = document.getElementsByClassName('map-point');
-            if (points.length > 0) {
-                const randomPoint = points[Math.floor(Math.random() * points.length)];
-                randomPoint.style.transform = "scale(1.8)";
-                randomPoint.style.boxShadow = "0 0 30px #ff00cc";
                 setTimeout(() => {
-                    randomPoint.style.transform = "scale(1)";
-                    randomPoint.style.boxShadow = "";
-                }, 500);
+                    const link = document.createElement('a');
+                    link.href = 'VibeMusic_Ankit_v0.5.15.apk';
+                    link.download = 'VibeMusic_Ankit_v0.5.15.apk';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }, 1000);
             }
-        }
-
-        function displayRandomShayeri() {
-            if (!window.shayeriData) return;
-            const randomItem = window.shayeriData[Math.floor(Math.random() * window.shayeriData.length)];
-            const textElement = document.getElementById('shayeriText');
-
-            // Security: Strip trailing #numbers just in case
-            const cleanText = randomItem.content.replace(/\s*#\s*\d+$/, '').trim();
-
-            textElement.style.opacity = 0;
-            setTimeout(() => {
-                textElement.innerText = cleanText;
-                textElement.style.opacity = 1;
-            }, 300);
-        }
-
-        function fetchShayeri() {
-            displayRandomShayeri();
-        }
-
-        // 2. Render Map Points
-        function renderMap(regions) {
-            const mapContainer = document.getElementById('mapVisual');
-            mapContainer.innerHTML = ''; // Clear
-
-            regions.forEach((region, index) => {
-                const point = document.createElement('div');
-                point.className = 'map-point';
-                point.style.top = region.top;
-                point.style.left = region.left;
-                point.style.animationDelay = `${index * 0.5}s`; // Staggered pulses
-                point.setAttribute('data-city', `${region.name}: ${region.users} Live Users`);
-                mapContainer.appendChild(point);
-            });
-
-            // Add visual text indicating simulated live activity
-            const liveTag = document.createElement('div');
-            liveTag.style.position = 'absolute';
-            liveTag.style.bottom = '20px';
-            liveTag.style.right = '20px';
-            liveTag.style.background = 'rgba(0,0,0,0.7)';
-            liveTag.style.padding = '5px 10px';
-            liveTag.style.borderRadius = '50px';
-            liveTag.style.fontSize = '0.8rem';
-            liveTag.style.color = '#ff2d55';
-            liveTag.style.border = '1px solid rgba(255, 45, 85, 0.3)';
-            liveTag.style.display = 'flex';
-            liveTag.style.alignItems = 'center';
-            liveTag.style.gap = '8px';
-
-            liveTag.innerHTML = `
-                <span style="width: 8px; height: 8px; background: #ff2d55; border-radius: 50%; box-shadow: 0 0 10px #ff2d55; animation: blink 1s infinite;"></span> 
-                LIVE ACTIVITY (INDIA)
-            `;
-
-            mapContainer.appendChild(liveTag);
-        }
-
-        // 3. Counter Animation (Initial Load)
-        function animateValue(id, start, end, duration) {
-            const obj = document.getElementById(id);
-            if (!obj) return;
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerText = Math.floor(progress * (end - start) + start).toLocaleString() + "+";
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // 4. Review System
-        function openReviewModal() {
-            const modal = document.getElementById('reviewModal');
-            if (modal) modal.style.display = 'flex';
-            currentRating = 0;
-            document.getElementById('reviewName').value = '';
-            document.getElementById('reviewText').value = '';
-            document.getElementById('reviewRating').value = '0';
-            initializeStars();
-            updateStarVisuals(0);
-        }
-
-        function closeReviewModal() {
-            const modal = document.getElementById('reviewModal');
-            if (modal) modal.style.display = 'none';
-        }
-
-        let currentRating = 0;
-        let starInputs = [];
-
-        function initializeStars() {
-            starInputs = document.querySelectorAll('.rating-input i');
-            starInputs.forEach(star => {
-                star.onclick = function () {
-                    currentRating = parseInt(this.getAttribute('data-value'));
-                    document.getElementById('reviewRating').value = currentRating;
-                    updateStarVisuals(currentRating);
-                    this.style.transform = 'scale(1.5)';
-                    setTimeout(() => (this.style.transform = 'scale(1.2)'), 100);
-                };
-                star.onmouseenter = function () {
-                    updateStarVisuals(parseInt(this.getAttribute('data-value')));
-                };
-                star.onmouseleave = function () {
-                    updateStarVisuals(currentRating);
-                };
-            });
-        }
-
-        function updateStarVisuals(rating) {
-            starInputs.forEach(star => {
-                const val = parseInt(star.getAttribute('data-value'));
-                if (val <= rating) {
-                    star.className = 'fa-solid fa-star';
-                    star.style.color = '#ffd700';
-                } else {
-                    star.className = 'fa-regular fa-star';
-                    star.style.color = '#888';
-                }
-            });
-        }
-
-        async function submitReview() {
-            const name = document.getElementById('reviewName').value.trim();
-            const text = document.getElementById('reviewText').value.trim();
-            const rating = currentRating;
-
-            if (!name || !text || rating === 0) {
-                showToast("⚠️ Sabhi fields bharna zaroori hai!");
-                return;
-            }
-
-            const badWords = ["bhosdi", "madarchod", "madharchod", "mc", "bc", "chutiya", "kutta", "randi", "gandu"];
-            if (badWords.some(word => text.toLowerCase().includes(word) || name.toLowerCase().includes(word))) {
-                alert("🚫 Security Alert: Negative energy detected.");
-                return;
-            }
-
-
-            const review = {
-                name,
-                rating,
-                text,
-                dateStr: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-            };
-
-            showToast("⏳ Syncing to Vibe Network...");
-            const success = await window.submitReviewToFirebase(review);
-            if (success) {
-                if (rating >= 4) launchFireworks();
-                closeReviewModal();
-                showToast("🚀 Live ho gaya! Sabhi phones par updates dikhenge.");
-            }
-        }
-
-        window.renderReviews = function (reviews) {
-            const container = document.getElementById('reviewsContainer');
-            if (!container) return;
-            container.innerHTML = '';
-            if (reviews.length === 0) {
-                container.innerHTML =
-                    '<p style="color: rgba(255,255,255,0.4); text-align: center; padding: 40px;">No stories yet. Be the first!</p>';
-                return;
-            }
-            reviews.forEach(r => container.appendChild(createReviewCard(r)));
-            updateStats(reviews);
-        };
-
-        function createReviewCard(r) {
-            const card = document.createElement('div');
-            card.className = 'review-card';
-            card.dataset.id = r.id;
-            const isOwner = localStorage.getItem('vibe_owner_mode') === 'true';
-
-            let stars = '';
-            for (let i = 0; i < 5; i++) {
-                stars += i < r.rating
-                    ? '<i class="fa-solid fa-star" style="color:#ffd700;"></i>'
-                    : '<i class="fa-regular fa-star" style="color:#555;"></i>';
-            }
-
-            card.innerHTML = `
-                <div class="admin-controls" style="position: absolute; top: 10px; right: 10px; display: ${isOwner ? 'flex' : 'none'}; gap: 8px;">
-                    <button onclick="editReview('${r.id}')" style="background:rgba(0,255,204,0.1); color:#00ffcc; border:none; padding:8px; border-radius:8px; cursor:pointer;"><i class="fa-solid fa-pen"></i></button>
-                    <button onclick="deleteReview('${r.id}')" style="background:rgba(255,0,0,0.1); color:#ff3333; border:none; padding:8px; border-radius:8px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
-                </div>
-                <div class="reviewer-profile">
-                    <div class="reviewer-img" style="background:linear-gradient(135deg,#FF0055,#FF00CC);">${r.name.charAt(0).toUpperCase()}</div>
-                    <div class="reviewer-info">
-                        <h4>${r.name} <i class="fa-solid fa-circle-check" style="color:#00ffcc; font-size:0.8rem;"></i></h4>
-                        <div class="stars">${stars}</div>
-                    </div>
-                </div>
-                <p class="review-text" style="font-size:1rem; color:#eee; white-space: pre-wrap;">"${r.text}"</p>
-                <div style="margin-top:15px; display:flex; justify-content:space-between; align-items:center;">
-                    <span style="color:rgba(255,255,255,0.4); font-size:0.8rem;">${r.dateStr}</span>
-                    <span style="font-size:0.8rem; color:#00ffcc; background:rgba(0, 255, 204, 0.1); padding:2px 8px; border-radius:4px;">Live Vibe</span>
-                </div>
-            `;
-            return card;
-        }
-
-        window.editReview = async function (id) {
-            const card = document.querySelector(`.review-card[data-id="${id}"]`);
-            const oldText = card.querySelector('.review-text').innerText.replace(/"/g, '');
-            const newText = prompt("Owner Action: Edit Review", oldText);
-            if (newText) {
-                showToast("⏳ Updating...");
-                await window.editReviewInFirebase(id, newText.trim());
-                showToast("✅ Updated!");
-            }
-        };
-
-        window.deleteReview = async function (id) {
-            if (confirm("Delete permanently from all devices?")) {
-                showToast("🗑️ Removing...");
-                await window.deleteReviewFromFirebase(id);
-                showToast("✅ Removed!");
-            }
-        };
-
-        // ADMIN LOGIC
-        function triggerAdminLogin() {
-            if (prompt("Owner Passcode") === "vibeowner2026") {
-                enableAdminMode();
-                showToast("🛡️ Owner Mode Active!");
-            }
-        }
-
-        function enableAdminMode() {
-            document.body.classList.add('admin-mode');
-            localStorage.setItem('vibe_owner_mode', 'true');
-            document.querySelectorAll('.admin-controls').forEach(c => (c.style.display = 'flex'));
-            if (!document.querySelector('.admin-badge')) {
-                const b = document.createElement('div');
-                b.className = 'admin-badge';
-                b.style.cssText =
-                    "position:fixed; top:20px; right:20px; background:#00ffcc; color:#000; padding:8px 15px; border-radius:20px; font-weight:bold; z-index:10000;";
-                b.innerText = '🛡️ OWNER';
-                document.body.appendChild(b);
-            }
-        }
-
-        function updateStats(reviews) {
-            const total = reviews.length + 1240;
-            const avg = (
-                (reviews.reduce((acc, r) => acc + r.rating, 0) + 1240 * 4.8) /
-                total
-            ).toFixed(1);
-            if (document.getElementById('avgRating')) document.getElementById('avgRating').innerText = avg;
-            if (document.getElementById('totalRatingCount'))
-                document.getElementById('totalRatingCount').innerText = total.toLocaleString() + " ratings";
-
-            const counts = [0, 0, 0, 0, 0, 0];
-            reviews.forEach(r => counts[r.rating]++);
-            counts[5] += 900;
-            counts[4] += 200;
-            counts[3] += 100;
-            counts[2] += 30;
-            counts[1] += 10;
-            const max = Math.max(...counts.slice(1));
-            for (let i = 1; i <= 5; i++) {
-                const bar = document.getElementById(`bar-${i}`);
-                if (bar) bar.style.width = `${(counts[i] / max) * 100}%`;
-            }
-        }
-
-        function showToast(msg) {
-            const t = document.createElement('div');
-            t.innerText = msg;
-            t.style.cssText =
-                "position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:#00ffcc; color:#000; padding:12px 25px; border-radius:50px; font-weight:bold; z-index:20000; animation:slideIn 0.3s; box-shadow:0 10px 30px rgba(0,255,204,0.4);";
-            document.body.appendChild(t);
-            setTimeout(() => {
-                t.style.opacity = '0';
-                setTimeout(() => t.remove(), 300);
-            }, 3000);
-        }
-
-        function launchFireworks() {
-            const f = document.createElement('div');
-            f.style.cssText =
-                "position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:10rem; z-index:9999; pointer-events:none; animation:pop 1.5s forwards;";
-            f.innerText = "🎉";
-            document.body.appendChild(f);
-            setTimeout(() => f.remove(), 1500);
-        }
-
-        window.onclick = e => {
-            if (e.target == document.getElementById('reviewModal')) closeReviewModal();
-        };
-
-        // Initialize Admin Mode
-        window.addEventListener('load', () => {
-            const title = document.getElementById('userStoriesTitle');
-            if (title) {
-                title.style.cursor = 'pointer';
-                title.ondblclick = triggerAdminLogin;
-            }
-            if (localStorage.getItem('vibe_owner_mode') === 'true') enableAdminMode();
         });
+
+        // Dynamic QR Code generation (Fallback for local testing)
+        const currentOrigin = window.location.origin;
+        const qrImg = document.getElementById('qrCode');
+        const productionUrl = "https://vibemusican.netlify.app";
+
+        // If testing locally, QR should point to production for scanning functionality
+        const finalUrl = (currentOrigin.includes('127.0.0.1') || currentOrigin.includes('localhost')) ? productionUrl : currentOrigin;
+
+        if (qrImg) {
+            qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(finalUrl + '/?download=true')}`;
+        }
     </script>
-    <script src="live-analytics.js" type="module"></script>
-    <script src="live-reviews.js" type="module"></script>
 </body>
 
 </html>
